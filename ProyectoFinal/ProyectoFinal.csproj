@@ -180,6 +180,8 @@
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\GymContext.cs" />
     <Compile Include="Models\Inscripcion.cs" />
+    <Compile Include="Models\Repositories\GroupRepository.cs" />
+    <Compile Include="Models\Repositories\IGroupRepository.cs" />
     <Compile Include="Models\Repositories\RoutineRepository.cs" />
     <Compile Include="Models\Repositories\SupplierRepository.cs" />
     <Compile Include="Models\Repositories\StockRepository.cs" />

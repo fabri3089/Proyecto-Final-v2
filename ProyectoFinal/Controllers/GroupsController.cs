@@ -7,19 +7,83 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoFinal.Models;
+using ProyectoFinal.Filters;
+using ProyectoFinal.Models.Repositories;
+using System.Configuration;
+using PagedList;
 
 namespace ProyectoFinal.Controllers
 {
+    [AuthorizationPrivilege(Role = "Admin")]
+    [HandleError()]
     public class GroupsController : Controller
     {
-        private GymContext db = new GymContext();
-
-        // GET: Groups
-        public ActionResult Index()
+        #region Properties
+        private IGroupRepository groupRepository;
+        #endregion
+        
+        #region Constructors
+        public GroupsController()
         {
-            return View(db.Groups.ToList());
+            this.groupRepository = new GroupRepository(new GymContext());
         }
 
+        public GroupsController(IGroupRepository groupRepository)
+        {
+            this.groupRepository = groupRepository;
+        }
+        #endregion
+        // GET: Groups
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            ViewBag.CurrentSort = sortOrder;
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var groups = groupRepository.GetGroups();
+            #region search
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                groups = groups.Where(r => r.GroupID.ToString().ToLower().Contains(searchString.ToLower()));
+            }
+            #endregion
+
+            #region OrderBy
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DescSortParm = sortOrder == "description_asc" ? "description_desc" : "description_asc";
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    groups = groups.OrderByDescending(a => a.Name);
+                    break;
+                case "description_desc":
+                    groups = groups.OrderByDescending(a => a.Description);
+                    break;
+                case "description_asc":
+                    groups = groups.OrderBy(a => a.Description);
+                    break;
+                default:
+                    groups = groups.OrderBy(a => a.Name);
+                    break;
+            }
+            #endregion
+
+            int pageNumber = (page ?? 1);
+            int pageSize = ConfigurationManager.AppSettings["PageSize"] != null ? Convert.ToInt32(ConfigurationManager.AppSettings["PageSize"]) : 8;
+            return View(groups.ToPagedList(pageNumber, pageSize));
+        }
+
+        [AuthorizationPrivilege(Role = "Admin")]
         // GET: Groups/Details/5
         public ActionResult Details(int? id)
         {
@@ -27,7 +91,7 @@ namespace ProyectoFinal.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = db.Groups.Find(id);
+            Group group = groupRepository.GetGroupByID((int)id);
             if (group == null)
             {
                 return HttpNotFound();
@@ -35,6 +99,7 @@ namespace ProyectoFinal.Controllers
             return View(group);
         }
 
+        [AuthorizationPrivilege(Role = "Admin")]
         // GET: Groups/Create
         public ActionResult Create()
         {
@@ -42,30 +107,34 @@ namespace ProyectoFinal.Controllers
         }
 
         // POST: Groups/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+        [AuthorizationPrivilege(Role = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "GroupID,Name,Description,level,quota,amount")] Group group)
+        public ActionResult Create([Bind(Include = "GroupID,Name,Description,Level,Quota,Amount")] Group group)
         {
             if (ModelState.IsValid)
             {
-                db.Groups.Add(group);
-                db.SaveChanges();
+                groupRepository.InsertGroup(group);
+                groupRepository.Save();
                 return RedirectToAction("Index");
             }
 
             return View(group);
         }
 
+
+
         // GET: Groups/Edit/5
+        [AuthorizationPrivilege(Role = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = db.Groups.Find(id);
+            Group group = groupRepository.GetGroupByID((int)id);
             if (group == null)
             {
                 return HttpNotFound();
@@ -73,30 +142,32 @@ namespace ProyectoFinal.Controllers
             return View(group);
         }
 
-        // POST: Groups/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Group/Edit/5
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+        [AuthorizationPrivilege(Role = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "GroupID,Name,Description,level,quota,amount")] Group group)
+        public ActionResult Edit([Bind(Include = "GroupID,Name,Description,Level,Quota,Amount")] Group group)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(group).State = EntityState.Modified;
-                db.SaveChanges();
+                groupRepository.UpdateGroup(group);
+                groupRepository.Save();
                 return RedirectToAction("Index");
             }
             return View(group);
         }
 
-        // GET: Groups/Delete/5
+        // GET: Activities/Delete/5
+        [AuthorizationPrivilege(Role = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = db.Groups.Find(id);
+            Group group = groupRepository.GetGroupByID((int)id);
             if (group == null)
             {
                 return HttpNotFound();
@@ -105,13 +176,14 @@ namespace ProyectoFinal.Controllers
         }
 
         // POST: Groups/Delete/5
+        [AuthorizationPrivilege(Role = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Group group = db.Groups.Find(id);
-            db.Groups.Remove(group);
-            db.SaveChanges();
+            Group group = groupRepository.GetGroupByID((int)id);
+            groupRepository.DeleteGroup((int)id);
+            groupRepository.Save();
             return RedirectToAction("Index");
         }
 
@@ -119,7 +191,7 @@ namespace ProyectoFinal.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                groupRepository.Dispose();
             }
             base.Dispose(disposing);
         }
