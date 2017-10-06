@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Comunicación exitosa";
+    var destinataries = Session["DestinatariesEmails"] as IEnumerable<string>;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1>Comunicación exitosa</h1>
+            <br />
+            <p class="lead"> <span class="glyphicon glyphicon-ok"></span> La comunicación ha sido enviada correctamente a siguientes destinatarios:</p>
+            <ul class="list-unstyled">
+                @foreach (var item in destinataries)
+                {
+                    <li> @item.ToString() </li>
+                }
+            </ul>
+            <br />
+            <h1 style="font-size:8em;">&#9786;</h1>
+            <ul class="list-unstyled">
+                <li>¿Qué hacer a continuación?</li>
+                <li><p></p></li>
+                <li>@Html.ActionLink("Realizar otra comunicación", "Index", "Emails", null, new { @class = "btn btn-primary btn-md" })</li>
+                <li><p></p></li>
+                <li>@Html.ActionLink("Ir a la Home", "Index", "Home", null, new { @class = "btn btn-default btn-md" })</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85232023-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

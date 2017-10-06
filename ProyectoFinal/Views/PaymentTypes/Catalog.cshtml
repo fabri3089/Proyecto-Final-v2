@@ -1,0 +1,121 @@
+﻿@model IEnumerable<ProyectoFinal.Models.PaymentType>
+@using ProyectoFinal.Models;
+@using ProyectoFinal.Utils;
+@{
+    ViewBag.Title = "Catálogo de abonos disponibles";
+    ViewBag.List = "Listado";
+    int numberPaymentType = 0;
+    var activities = ViewBag.Activities as HashSet<Activity>;
+}
+
+<!-- Scripts -->
+<script type="text/javascript" src="~/Scripts/forViews/PaymentTypes_Catalog.js"></script>
+<!-- Scripts -->
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <p class="lead">@ViewBag.List</p>
+            <div class="list-group activities">
+                <a id="activityAll" class="list-group-item active">Todos</a>
+                @foreach (var item in activities)
+                {
+                    <a id="activity@(item.ActivityID)" class="list-group-item">@Html.DisplayFor(modelItem => item.Name)</a>
+                }
+            </div>
+        </div>
+
+        <div class="col-md-9">
+
+            <div class="row">
+
+                @foreach (var item in Model)
+                {
+                    numberPaymentType = numberPaymentType + 1;
+                    var pic = numberPaymentType > 15 ? 1 : numberPaymentType;
+                    var currentPrice = item.PaymentTypePrices
+                             .OrderByDescending(p => p.DateFrom)
+                             .Where(p => p.DateFrom.Date <= DateTime.Now.Date)
+                             .FirstOrDefault();
+
+                    if (currentPrice != null)
+                    {
+                        <div class="paymentTypeDetail col-sm-6 col-md-4 activity@(item.ActivityID)">
+                            <div class="thumbnail">
+                                <img src="~/Images/icons/@(pic).JPG" alt="">
+                                <div class="caption">
+                                    <h3>@Html.DisplayFor(modelItem => item.Description)</h3> 
+                                    <p>Actividad: @Html.DisplayFor(modelItem => item.Activity.Name)</p>
+                                    <p>Precio: $@Html.DisplayFor(modelItem => item.PaymentTypePrices.FirstOrDefault().Price)</p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal@(item.PaymentTypeID)">
+                                            Ver más
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <p> Lo sentimos, por el momento no hay abonos disponibles para el abono @(item.Description).Acercate a nuestras instalaciones a consultar.</p>
+                    }
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- /.container -->
+
+
+<!-- Modal -->
+@foreach (var item in Model)
+{
+<div class="modal fade" id="myModal@(item.PaymentTypeID)" tabindex="-1" role="dialog" aria-labelledby="@(item.PaymentTypeID)Label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="@(item.PaymentTypeID)Label">@Html.DisplayFor(modelItem => item.Description)</h4>
+            </div>
+            <div class="modal-body">
+                <h4><i>Detalles del abono</i></h4>
+                <p><strong>Duración: </strong> @Html.DisplayFor(modelItem => item.DurationInMonths) mes(es)</p>
+                <hr />
+                <h4><i>Detalles de la actividad</i></h4>
+                <p><strong>Actividad: </strong> @Html.DisplayFor(modelItem => item.Activity.Name)</p>
+                <p><strong>Breve descripción: </strong> @Html.DisplayFor(modelItem => item.Activity.Description)</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+<br />
+<br />
+<br />
+<br />
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85232023-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

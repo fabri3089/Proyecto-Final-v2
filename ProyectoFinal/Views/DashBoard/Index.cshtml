@@ -1,0 +1,102 @@
+﻿@model ProyectoFinal.Models.Client
+@using ProyectoFinal.Utils
+
+@{
+    ViewBag.Title = "Dashboard";
+    ViewBag.Photo = Model.Sexo.Equals(Catalog.Genre.Hombre) ? "men.JPG" : "women.JPG";
+}
+<h2>Mi perfil</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
+            @Html.ActionLink("Editar mi perfil", "Edit", "DashBoard", null, null)
+            @Html.ActionLink("| Salir", "Logout", "Home", null, null)
+            <br>
+            <p class="text-info">@DateTime.Now.ToShortDateString()</p>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Model.FirstName @Model.LastName</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 " align="center"> 
+                            <img alt="User Pic" src="~/Images/profile/@(ViewBag.Photo)" class="img-circle img-responsive"> 
+                        </div>
+                        <div class="col-md-9 col-lg-9">
+                            <table class="table table-user-information">
+                                <tbody>
+                                    <tr>
+                                        <td>Nombre:</td>
+                                        <td>@Model.FirstName</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apellido:</td>
+                                        <td>@Model.LastName</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Documento:</td>
+                                        <td>@Model.DocNumber</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fecha de nacimiento:</td>
+                                        <td>@Model.BirthDate.ToShortDateString()</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email:</td>
+                                        <td>@Model.Email</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sexo:</td>
+                                        <td>@Model.Sexo</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rol:</td>
+                                        <td>@ViewBag.UserRol</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            @if (Model.Role.Equals(Catalog.Roles.Client))
+                            {
+                            <a class="btn btn-primary">Ver mis rutinas</a>
+                            <a class="btn btn-primary">Ver mi planilla</a>
+                            }
+                            else if(Model.Role.Equals(Catalog.Roles.Admin))
+                            { }
+                            else if (Model.Role.Equals(Catalog.Roles.Instructor))
+                            {
+
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <span class="pull-right">
+                        <a href="@Url.Action("Edit", "DashBoard", null)" title="Editar mis datos" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                        <a href="@Url.Action("EditPassword", "DashBoard", null)" title="Cambiar password" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-wrench"></i></a>
+                        <a href="@Url.Action("Logout", "Home", null)" title="Salir" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                        
+                    </span>
+                    <br />
+                    <br />
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85232023-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

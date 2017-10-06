@@ -1,0 +1,38 @@
+﻿@using ProyectoFinal.Models
+@using ProyectoFinal.Utils
+@{ 
+    var role = Session["Role"] != null ? Session["Role"] : null;
+    var loggedUser = Session["User"] != null ? Session["User"] : null;
+    var name = string.Empty;
+    var lastName = string.Empty;
+    bool isAuthenticated = false;
+
+    if (role != null && loggedUser != null)
+    {
+        isAuthenticated = true;
+        name = loggedUser.GetType().GetProperty("FirstName").GetValue(loggedUser, null).ToString();
+        lastName = loggedUser.GetType().GetProperty("LastName").GetValue(loggedUser, null).ToString();
+    }
+
+}
+
+@if(isAuthenticated)
+            {
+                using (Html.BeginForm("Logout", "Home", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hola " + name + "!", "Index", "DashBoard", null, null)
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Iniciar sesión", "Login", "Home", null, null)</li>
+    </ul>
+}

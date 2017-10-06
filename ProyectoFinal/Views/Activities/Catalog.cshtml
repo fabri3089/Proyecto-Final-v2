@@ -1,0 +1,112 @@
+﻿@model IEnumerable<ProyectoFinal.Models.Activity>
+@using ProyectoFinal.Models;
+@using ProyectoFinal.Utils;
+
+@{
+    ViewBag.Title = "Catálogo de actividades";
+    ViewBag.Services = "Servicios que te ofrecemos";
+    int numberActivity = 0;
+}
+
+<!-- Scripts -->
+<link href="~/Content/shop-item.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="~/Scripts/forViews/Activities_Catalog.js"></script>
+<!-- Scripts -->
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <p class="lead">@ViewBag.Services</p>
+            <div class="list-group">
+                @foreach (var item in Model) {
+                    <a id="@numberActivity" class="list-group-item">@Html.DisplayFor(modelItem => item.Name)</a>
+                    numberActivity = numberActivity + 1;
+                }
+            </div>
+        </div>
+
+
+        <div class="col-md-9">
+            <div class="thumbnail">
+            @foreach (var item in Model)
+            {
+                <div class="caption-full">
+                    <h4>
+                        <a>@Html.DisplayFor(modelItem => item.Name)</a>
+                    </h4>
+
+                    @if (!string.IsNullOrEmpty(item.Description)) //Si tiene descripción
+                    {
+                        <p>
+                            <strong><u>Descripción</u></strong><br />
+                            @Html.DisplayFor(modelItem => item.Description).
+                        </p>
+                    }
+
+                    @if(item.ActivitySchedules != null && item.ActivitySchedules.Count > 0) { //Si tiene horarios establecidos
+                    <p>
+                        <strong><u>Horarios disponibles</u></strong><br />
+                        <ul>
+                            @foreach (var schedule in item.ActivitySchedules)
+                            {
+                                <li>@Html.DisplayFor(x => schedule.Day)     @Html.DisplayFor(x => schedule.HourFrom)hs a @Html.DisplayFor(x => schedule.HourTo)hs</li>
+                            }
+                        </ul>
+                    </p>
+                    }
+
+                    @if (item.PaymentTypes != null &&
+                         item.PaymentTypes.Count > 0 &&
+                         item.PaymentTypes.Where(p => p.Status.Equals(Catalog.Status.Active)).ToList().Count > 0) //Si tiene abonos activos
+                    {
+                        <p>
+                            <strong><u>Abonos</u></strong><br />
+                            <ul>
+                                @foreach (var paymentType in item.PaymentTypes)
+                                {
+                                    var currentPrice = paymentType.PaymentTypePrices
+                                                                 .OrderByDescending(p => p.DateFrom)
+                                                                 .Where(p => p.DateFrom.Date <= DateTime.Now.Date)
+                                                                 .FirstOrDefault();
+
+                                    <li>@Html.DisplayFor(x => paymentType.Description): 
+                                        @Html.DisplayFor(x => paymentType.DurationInMonths) mes(es) 
+                                        
+                                        @if (currentPrice != null)
+                                        {
+                                                @:a sólo $@Html.DisplayFor(x => currentPrice.Price)
+                                        }
+                                    </li>
+                                }
+                            </ul>
+                        </p>
+                    }
+                </div>
+            }
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container -->
+
+<br />
+<br />
+<br />
+<br />
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85232023-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

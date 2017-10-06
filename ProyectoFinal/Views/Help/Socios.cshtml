@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewBag.Title = "Ayuda";
+    ViewBag.InnerTitle = "Página de ayuda para socios del sitio";
+}
+
+<!-- Page Content -->
+<div class="container">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                @ViewBag.Title
+                <small>@ViewBag.InnerTitle</small>
+            </h1>
+        </div>
+    </div>
+    <!-- /.row -->
+    <!-- Menú navegación -->
+    <div class="row">
+        <div class="col-md-7">
+            <a href="#">
+                <img class="img-responsive" src="~/Images/help/index00.jpg" alt="Menú de navegación" title="Menú de navegación">
+            </a>
+        </div>
+        <div class="col-md-5">
+            <h3>Menú navegación</h3>
+            <h4>Links importantes</h4>
+            <p>
+                Sobre la parte superior del sitio encontrarás una barra horizontal negra con links a las páginas más importantes del sitio. El primer link, 'Gimnasio Amos', te lleva siempre a la página principal del sitio web.
+                Algunos links tienen submenús para organizar la información. El link 'Iniciar sesión' te sirve para loguearte en el sistema.
+                El link que posee tu nombre, te permite ingresar a tu dashboard para ver/editar tus datos personales.
+            </p>
+        </div>
+    </div>
+    <!-- /.row -->
+    <hr class="style-seven">
+    <!-- Como me registro -->
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Rutinas</h3>
+            <h4>¿Cómo creo una rutina?</h4>
+            <p>
+                Desde el menú mencionado anteriormente verás una opción 'Rutinas'. Al hacer click, accederás a la página de administración de rutinas, donde podrás elegir una rutina básica predefinida o crear
+                una rutina desde cero según tus necesidades.
+            </p>
+
+        </div>
+    </div>
+    <!-- /.row -->
+    <hr class="style-seven">
+    <!-- Project One -->
+    <div class="row">
+        <div class="col-md-7">
+            <a href="#">
+                <img class="img-responsive" src="~/Images/help/index01.jpg" alt="Página de inicio" title="Página de inicio">
+            </a>
+        </div>
+        <div class="col-md-5">
+            <h3>Home</h3>
+            <h4>Página de inicio</h4>
+            <p>
+                Al ingresar al sitio web, esta será la primera página que veas. Encontrarás links en el menú y en la zona media de la página para acceder a nuestros catálogos de actividades y abonos, como así también acceso a páginas de ayuda, de contacto y otra con información del gimnasio.
+                Al desplazarte hacia abajo, encontrarás una galería de imágenes de nuestro gimnasio.
+            </p>
+            @Html.ActionLink("Ir a la Home", "Index", "Home", null, new { @class = "btn btn-primary btn-md", target = "_blank" })
+        </div>
+    </div>
+    <!-- /.row -->
+    <hr class="style-seven">
+    <!-- Project Two -->
+    <div class="row">
+        <div class="col-md-7">
+            <a href="#">
+                <img class="img-responsive" src="~/Images/help/index02.jpg" alt="Página de catálogo de abonos" title="Página de catálogo de abonos">
+            </a>
+        </div>
+        <div class="col-md-5">
+            <h3>Catálogo de abonos</h3>
+            <h4>Conoce nuestros abonos</h4>
+            <p>
+                Esta página te permite conocer los abonos disponibles al público. En el menú a la izquierda podrás elegir la actividad para conocer los abonos disponibles. Los botones "Ver más" abren un modal con más información sobre el abono correspondiente.
+                Accedes a esta pantalla desde el menú haciendo click en Catálogos y Luego Abonos.
+            </p>
+            @Html.ActionLink("Ver abonos", "Catalog", "PaymentTypes", null, new { @class = "btn btn-primary btn-md", target = "_blank" })
+        </div>
+    </div>
+    <!-- /.row -->
+    <hr class="style-seven">
+    <!-- Project Three -->
+    <div class="row">
+        <div class="col-md-7">
+            <a href="#">
+                <img class="img-responsive" src="~/Images/help/index03.jpg" alt="Página de catálogo de actividades" title="Página de catálogo de actividades">
+            </a>
+        </div>
+        <div class="col-md-5">
+            <h3>Catálogo de actividades</h3>
+            <h4>Conoce nuestras actividades</h4>
+            <p>
+                Esta página te permite conocer las actividades disponibles al público. En el menú a la izquierda podrás elegir la actividad para ver su descripción y los horarios disponibles para asistir.
+                Accedes a esta pantalla desde el menú haciendo click en Catálogos y luego Actividades.
+            </p>
+            @Html.ActionLink("Ver actividades", "Catalog", "Activities", null, new { @class = "btn btn-primary btn-md", target = "_blank" })
+        </div>
+    </div>
+    <!-- /.row -->
+    <hr class="style-seven">
+    <!-- Project Five -->
+    <div class="row">
+        <div class="col-md-7">
+            <a href="#">
+                <img class="img-responsive" src="~/Images/help/index04.jpg" alt="">
+            </a>
+        </div>
+        <div class="col-md-5">
+            <h3>Contacto</h3>
+            <h4>Información de contacto</h4>
+            <p>En esta página encontrarás información general como ubicación, horarios, mapa para saber como llegar, dirección, teléfono, entre otros.</p>
+            @Html.ActionLink("Ir a la página", "Contact", "Home", null, new { @class = "btn btn-primary btn-md", target = "_blank" })
+        </div>
+    </div>
+    <!-- /.row -->
+    <hr class="style-seven">
+</div>
+<!-- /.container -->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85232023-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

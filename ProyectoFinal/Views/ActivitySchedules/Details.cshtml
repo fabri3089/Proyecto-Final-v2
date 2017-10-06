@@ -1,0 +1,59 @@
+﻿@model ProyectoFinal.Models.ActivitySchedule
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalles horario</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Actividad
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Day)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Day)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HourFrom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HourFrom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HourTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HourTo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ActivityScheduleID }) |
+    @Html.ActionLink("Volver a la lista", "Index")
+</p>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85232023-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

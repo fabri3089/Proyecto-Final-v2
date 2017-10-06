@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewBag.Title = "Ayuda";
+    ViewBag.InnerTitle = "Página de ayuda para administradores del sitio";
+}
+
+<!-- Page Content -->
+<div class="container">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                @ViewBag.Title
+                <small>@ViewBag.InnerTitle</small>
+            </h1>
+        </div>
+    </div>
+    <!-- /.row -->
+    <!-- Menú navegación -->
+    <div class="row">
+        <div class="col-md-7">
+            <a href="#">
+                <img class="img-responsive" src="~/Images/help/index05.jpg" alt="Menú de navegación" title="Menú de navegación">
+            </a>
+        </div>
+        <div class="col-md-5">
+            <h3>Menú navegación</h3>
+            <h4>Links importantes</h4>
+            <p>
+                Sobre la parte superior del sitio encontrarás una barra horizontal negra con links a las páginas más importantes del sitio. El primer link, 'Gimnasio Amos', te lleva siempre a la página principal del sitio web.
+                Algunos links tienen submenús para organizar la información. El link 'Estadísticas' te llevará a la página de estadísticas donde podrás analizar el funcionamiento del gimnasio. También tendrás acceso
+                a todos los ABMs del sitio, como el de Socios, Productos, Abonos, Actividades, entre otros. También podrás ver/editar tus datos personales en el link que dice 'Hola' seguido de tu nombre.
+            </p>
+        </div>
+    </div>
+    <!-- /.row -->
+    <hr class="style-seven">
+    <!-- Como me registro -->
+    <div class="row">
+        <div class="col-md-7">
+            <a href="#">
+                <img class="img-responsive" src="~/Images/help/index06.jpg" alt="Comunicaciones" title="Comunicaciones">
+            </a>
+        </div>
+        <div class="col-md-5">
+            <h3>Campañas</h3>
+            <h4>¿Cómo creo una campaña o comunicación?</h4>
+            <p>
+                El sistema permite realizar comunicaciones vía email a grupos específicos del gimnasio, como por ejemplo realizar una comunicación a todos los socios, o a todos los profesores, o a todos los socios con deuda.
+                El primer paso se configura el mail, pudiendo luego visualizarse. Finalmente se eligen los destinatarios y se realiza la comunicación.
+            </p>
+            @Html.ActionLink("Ir a la página", "Index", "Emails", null, new { @class = "btn btn-primary btn-md", target = "_blank" })
+        </div>
+    </div>
+    <!-- /.row -->
+    <hr class="style-seven">
+    <!-- Project One -->
+    <div class="row">
+        <div class="col-md-7">
+            <a href="#">
+                <img class="img-responsive" src="~/Images/help/index07.jpg" alt="Alta socios" title="Alta socios">
+            </a>
+        </div>
+        <div class="col-md-5">
+            <h3>Socios</h3>
+            <h4>¿Cómo doy de alta un socio?</h4>
+            <p>
+                En la parte superior izquierda encontrarás un link que abrirá un formulario donde podrás completar la información del socio. Luego, en la tabla de socios, podrás
+                buscar, editar un socio, eliminar un socio, o ver información detallada de un socio. Todos los ABMs del sitio se comportan de la misma manera y poseen el mismo diseño.
+            </p>
+            @Html.ActionLink("Ir a la página", "Index", "Clients", null, new { @class = "btn btn-primary btn-md", target = "_blank" })
+        </div>
+    </div>
+    <!-- /.row -->
+    <hr class="style-seven">
+    <!-- Project Statistics -->
+    <div class="row">
+        <div class="col-md-7">
+            <a href="#">
+                <img class="img-responsive" src="~/Images/help/index02.jpg" alt="Página de catálogo de abonos" title="Página de catálogo de abonos">
+            </a>
+        </div>
+        <div class="col-md-5">
+            <h3>Estadísticas</h3>
+            <h4>Utiliza nuestro módulo de estadísticas</h4>
+            <p>
+                Esta página te permite ver y analizar estadísticas relacionadas al sitio, con el objetivo de ayudar en la toma de decisiones. Cuenta con distintos tipos de gráficos
+                que proveen distinta información. En la parte superior izquierda, encontrarás un desplegable donde podrás elegir el gráfico que desees utilizar.
+            </p>
+            @Html.ActionLink("Ir a estadísticas", "Index", "Statistics", null, new { @class = "btn btn-primary btn-md", target = "_blank" })
+        </div>
+    </div>
+    <!-- /.row -->
+    <hr class="style-seven">
+    <!-- Project Two -->
+    <div class="row">
+        <div class="col-md-7">
+            <a href="#">
+                <img class="img-responsive" src="~/Images/help/index02.jpg" alt="Página de catálogo de abonos" title="Página de catálogo de abonos">
+            </a>
+        </div>
+        <div class="col-md-5">
+            <h3>Catálogo de abonos</h3>
+            <h4>Conoce nuestros abonos</h4>
+            <p>
+                Esta página te permite conocer los abonos disponibles al público. En el menú a la izquierda podrás elegir la actividad para conocer los abonos disponibles. Los botones "Ver más" abren un modal con más información sobre el abono correspondiente.
+                Accedes a esta pantalla desde el menú haciendo click en Catálogos y Luego Abonos.
+            </p>
+            @Html.ActionLink("Ver abonos", "Catalog", "PaymentTypes", null, new { @class = "btn btn-primary btn-md", target = "_blank" })
+        </div>
+    </div>
+    <!-- /.row -->
+    <hr class="style-seven">
+    <!-- Project Three -->
+    <div class="row">
+        <div class="col-md-7">
+            <a href="#">
+                <img class="img-responsive" src="~/Images/help/index03.jpg" alt="Página de catálogo de actividades" title="Página de catálogo de actividades">
+            </a>
+        </div>
+        <div class="col-md-5">
+            <h3>Catálogo de actividades</h3>
+            <h4>Conoce nuestras actividades</h4>
+            <p>
+                Esta página te permite conocer las actividades disponibles al público. En el menú a la izquierda podrás elegir la actividad para ver su descripción y los horarios disponibles para asistir.
+                Accedes a esta pantalla desde el menú haciendo click en Catálogos y luego Actividades.
+            </p>
+            @Html.ActionLink("Ver actividades", "Catalog", "Activities", null, new { @class = "btn btn-primary btn-md", target = "_blank" })
+        </div>
+    </div>
+    <!-- /.row -->
+    <hr class="style-seven">
+</div>
+<!-- /.container -->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85232023-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

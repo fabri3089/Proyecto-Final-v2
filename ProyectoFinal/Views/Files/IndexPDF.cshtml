@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ProyectoFinal.Models.File>
+
+@{
+    ViewBag.Title = "PDF";
+    Layout = "~/Views/Shared/_LayoutPDF.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/routine.css" />
+
+<div class="container">
+    @if (!string.IsNullOrEmpty(ViewBag.ClientName))
+    {
+        <h3><strong>Socio: </strong>@ViewBag.ClientName</h3>
+    }
+    <h4><strong>Rutina: </strong> @ViewBag.RoutineName</h4>
+    <h4><strong>Descripción: </strong> @ViewBag.Description</h4>
+    <br />
+    <div id="table" class="table-editable">
+        <table class="table table-striped table-condensed">
+            <tr>
+                <th data-json="Day">Día</th>
+                <th data-json="MuscleName">Músculo</th>
+                <th data-json="ExerciseName">Ejercicio</th>
+                <th data-json="Peso">Peso</th>
+                <th data-json="Repetitions">Series</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td spellcheck="false" contenteditable="true">@item.Day</td>
+                    <td spellcheck="false" contenteditable="true">@item.MuscleName</td>
+                    <td spellcheck="false" contenteditable="true">@item.ExerciseName</td>
+                    <td spellcheck="false" contenteditable="true">@item.Peso</td>
+                    <td spellcheck="false" contenteditable="true">@item.Repetitions</td>
+                </tr>
+            }
+
+            <!-- This is our clonable table line -->
+            <tr class="hide">
+                <td contenteditable="true">Ingrese valor</td>
+                <td contenteditable="true">Ingrese valor</td>
+                <td contenteditable="true">Ingrese valor</td>
+                <td contenteditable="true">Ingrese valor</td>
+                <td contenteditable="true">Ingrese valor</td>
+                <td>
+                    <span class="table-remove glyphicon glyphicon-remove"></span>
+                </td>
+                <td>
+                    <span class="table-up glyphicon glyphicon-arrow-up"></span>
+                    <span class="table-down glyphicon glyphicon-arrow-down"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<br />
+<hr />

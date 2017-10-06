@@ -1,0 +1,96 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/*Aligns in center the text of the last header cell in tables*/
+table th.actions {
+    text-align: center;
+}
+
+.iframe-container{
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Ratio 16:9 ( 100%/16*9 = 56.25% ) */
+}
+.iframe-container > *{
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.iframe-container{
+  margin-bottom: 50px;
+  background: #eee;
+}
+
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+      width: 70%;
+      margin: auto;
+  }
+
+.carousel-inner > .item > img{
+       width:640px;
+       height:360px;
+     }
+
+
+/*Error Alerts*/
+div.alert.alert-danger.errorAlert a {
+    cursor:pointer;
+    color:#b94a48;
+
+}
+
+div.alert.alert-danger.errorAlert a span {
+    float:right;
+}
+/*Error Alerts*/
+
+
+/*hr for help pages*/
+hr.style-seven {
+    height: 30px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: black;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+/*hr for help pages end*/

@@ -1,0 +1,95 @@
+﻿@model IEnumerable<ProyectoFinal.Models.File>
+@using PagedList.Mvc;
+@using ProyectoFinal.Utils
+@{
+    ViewBag.Title = "Index";
+    var routineID = (int)Session["RoutineID"];
+}
+@Html.Hidden("RoutineID", routineID, null);
+
+<link rel="stylesheet" type="text/css" href="~/Content/routine.css" />
+
+<div class="container">
+    <h1>Personaliza tu rutina</h1>
+    <p>
+        Elige los ejercicios que creas convenientes según tus disponibilidad horaria y nivel de experiencia. Puedes agregar, quitar y ordenar los elementos a tu gusto.
+        Una vez que finalices, presiona <strong>Confirmar</strong> para guardar tus cambios. También puedes descargar tu rutina con el botón <strong>Descargar</strong>.
+    </p>
+
+    <ul>
+        <li><strong>Nombre rutina:</strong> @ViewBag.RoutineName</li>
+        <li><strong>Descripción:</strong> @ViewBag.Description</li>
+    </ul>
+
+    <div id="table" class="table-editable">
+        <span title="Agregar registro" class="table-add glyphicon glyphicon-plus"></span>
+        <table class="table">
+            <tr>
+                <th data-json="Day">Día</th>
+                <th data-json="MuscleName">Músculo</th>
+                <th data-json="ExerciseName">Ejercicio</th>
+                <th data-json="Peso">Peso</th>
+                <th data-json="Repetitions">Series</th>
+                <th data-json="RoutineID" class="hidden"></th>
+                <th></th>
+                <th></th>
+            </tr>
+            
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td spellcheck="false" contenteditable="true">@item.Day</td>
+                    <td spellcheck="false" contenteditable="true">@item.MuscleName</td>
+                    <td spellcheck="false" contenteditable="true">@item.ExerciseName</td>
+                    <td spellcheck="false" contenteditable="true">@item.Peso</td>
+                    <td spellcheck="false" contenteditable="true">@item.Repetitions</td>
+                    <td>
+                        <span title="Quitar registro" class="table-remove glyphicon glyphicon-remove"></span>
+                    </td>
+                    <td>
+                        <span title="Subir un nivel" class="table-up glyphicon glyphicon-arrow-up"></span>
+                        <span title="Bajar un nivel" class="table-down glyphicon glyphicon-arrow-down"></span>
+                    </td>
+                </tr>
+            }
+                    
+            <!-- This is our clonable table line -->
+            <tr class="hide">
+                <td spellcheck="false" contenteditable="true">Ingrese valor</td>
+                <td spellcheck="false" contenteditable="true">Ingrese valor</td>
+                <td spellcheck="false" contenteditable="true">Ingrese valor</td>
+                <td spellcheck="false" contenteditable="true">Ingrese valor</td>
+                <td spellcheck="false" contenteditable="true">Ingrese valor</td>
+                <td>
+                    <span class="table-remove glyphicon glyphicon-remove"></span>
+                </td>
+                <td>
+                    <span class="table-up glyphicon glyphicon-arrow-up"></span>
+                    <span class="table-down glyphicon glyphicon-arrow-down"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <button id="export-btn" class="btn btn-primary">Confirmar</button> <span id="export"></span>
+</div>
+
+<br />
+<hr />
+<h3>Personaliza tu rutina</h3>
+<p>
+    Descarga tu rutina para tenerla a mano cuando lo necesites
+</p>
+@Html.ActionLink("Descargar", "GeneratePDF", new { id = routineID }, new { @class = "btn btn-primary", target = "_blank" })
+
+<script src="~/Scripts/forViews/Files_Index.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85232023-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

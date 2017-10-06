@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ProyectoFinal.Models.Assistance>
+@using MvcContrib.UI.Pager
+@using MvcContrib.Pagination;
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@Html.Raw(@Html.Pager((IPagination)Model)
+                .Format("Mostrando {0}-{1} de {2} | ")
+                .First("Primero")
+                .Previous("Anterior")
+                .Next("Siguiente")
+                .Last("Último")
+         )
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.assistanceDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.assistanceDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClientID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AssistanceID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AssistanceID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AssistanceID })
+        </td>
+    </tr>
+}
+
+</table>
+@Html.Raw(@Html.Pager((IPagination)Model)
+                .Format("Mostrando {0}-{1} de {2} | ")
+                .First("Primero")
+                .Previous("Anterior")
+                .Next("Siguiente")
+                .Last("Último")
+         )
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85232023-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

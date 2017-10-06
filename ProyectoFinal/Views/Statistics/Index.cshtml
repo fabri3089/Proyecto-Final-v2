@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<script src="~/Scripts/forViews/Statistics_Index.js"></script>
+<style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+<script src="~/Scripts/Chart.bundle.min.js"></script>
+
+
+<h2>Módulo de estadísticas</h2>
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-lg-12">
+            <label for="selectChart" class="control-label">Gráfico a mostrar: </label>
+            <select id="selectChart" class="form-control">
+                <option value="0">Seleccione un gráfico</option>
+                <option value="all">Todos</option>
+                <option value="barChart">Bar chart</option>
+                <option value="lineChart">Line chart</option>
+                <option value="pieChart">Pie</option>
+                <option value="hooksChart">Tooltip</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12" id="gif">
+    <p class="text-center"><img src="~/Images/loading.gif" /></p>
+</div>
+
+<div class="col-lg-12 barChart chart" style="width: 75%; display:none;">
+    <h3>Bar Chart</h3>
+    <p>Quienes acuden a nuestro gimnasio</p>
+    <canvas id="canvasBar"></canvas>
+</div>
+<br />
+
+<div class="col-lg-12 lineChart chart" style="width: 75%; display:none;">
+    <h3>Line Chart</h3>
+    <p>Cantidad de inscripciones por año</p>
+    <canvas id="canvasLine"></canvas>
+    <button class="btn btn-primary" id="addDataToLineChart">Agrega un año</button>
+    <button class="btn btn-default" id="removeDataToLineChart">Remueve un año</button>
+</div>
+<br />
+
+<div class="col-lg-12 pieChart chart" style="width: 75%; display:none;">
+    <h3>Pie Chart</h3>
+    <p>Participación de cada actividad en el total de ventas</p>
+    <br />
+    <canvas id="canvasPie"></canvas>
+</div>
+<br />
+
+<div class="col-lg-12 hooksChart chart" style="width: 75%; display:none;">
+    <h3>Asistencia histórica por mes</h3>
+    <p>Muestra el tráfico por mes</p>
+    <br />
+    <canvas id="canvasHooks"></canvas>
+    <button class="btn btn-primary" id="addDataToHookChart">Agrega un mes</button>
+    <button class="btn btn-default" id="removeDataToHookChart">Remueve un mes</button>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85232023-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

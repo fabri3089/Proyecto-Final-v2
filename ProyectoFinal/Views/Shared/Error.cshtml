@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Error del servidor";
+    ViewBag.SubTitle = "Error en el procesamiento de la solicitud";
+    ViewBag.Description = "Ups! Lo sentimos, pero ha surgido un error inesperado. Por favor, vuelve a intentarlo más tarde.";
+}
+
+<br /><br />
+<!-- Page Content -->
+<div class="container">
+    <!-- Heading Row -->
+    <div class="row">
+        <div class="col-md-8">
+            <img class="img-responsive img-rounded" src="~/Images/error/500error.jpg" alt="">
+        </div>
+        <!-- /.col-md-8 -->
+        <div class="col-md-4">
+            <h1>Ups! Algo salió mal</h1>
+            <p>Lo sentimos, pero hubo un error inesperado. Hemos tomado nota del error ocurrido. Regresa a la Home para seguir navegando el sitio</p>
+            @Html.ActionLink("Ir a la Home", "Index", "Home", null, new { @class = "btn btn-primary" })
+        </div>
+        <!-- /.col-md-4 -->
+    </div>
+    <!-- /.row -->
+    <hr>
+    <!-- Call to Action Well -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="well text-center">
+                Aquí te dejamos otros links de utilidad para que sigas navegando
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <!-- Content Row -->
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Catálogo de abonos</h3>
+            @Html.ActionLink("Ir a la página", "Catalog", "PaymentTypes", null, new { @class = "btn btn-primary" })
+        </div>
+        <!-- /.col-md-4 -->
+        <div class="col-md-4">
+            <h3>Catálogo de actividades</h3>
+            @Html.ActionLink("Ir a la página", "Catalog", "Activities", null, new { @class = "btn btn-primary" })
+        </div>
+        <!-- /.col-md-4 -->
+        <div class="col-md-4">
+            <h3>Página de ayuda</h3>
+            @if (Session["Role"] != null && Session["User"] != null && Session["Role"].ToString() == "Admin")
+            {
+                @Html.ActionLink("Ir a la página", "Admins", "Help", null, new { @class = "btn btn-primary" })
+            }
+            else if (Session["Role"] != null && Session["User"] != null && Session["Role"].ToString() == "Instructor")
+            {
+                @Html.ActionLink("Ir a la página", "Profesores", "Help", null, new { @class = "btn btn-primary" })
+            }
+            else if (Session["Role"] != null && Session["User"] != null && Session["Role"].ToString() == "Client")
+            {
+                @Html.ActionLink("Ir a la página", "Socios", "Help", null, new { @class = "btn btn-primary" })
+            }
+            else
+            {
+                @Html.ActionLink("Ir a la página", "Index", "Help", null, new { @class = "btn btn-primary" })
+            }
+        </div>
+        <!-- /.col-md-4 -->
+    </div>
+    <!-- /.row -->
+</div>
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85232023-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

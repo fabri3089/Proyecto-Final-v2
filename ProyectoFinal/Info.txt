@@ -1,0 +1,11 @@
+﻿TO DO:
+1 - Chequear que controladores no son necesarios. Por ej, PaymentTypePricesController creo que no sería necesario, ya que desde el controlador PaymentTypeController debería
+    actualizar el precio y realizar update en BD.
+4 - Campos tipo float como por ej height en Medical Records, no me permiten ingresar '.' ni ','.
+5 - Cambiar model/controller/views de File. La entidad debe llamarse Exercise, o algun nombre similar que represente un ejercicio, no un archivo/file
+6 - Agregar Orders para manejar pedidos a proveedores
+11 - Controller que maneje paginas principales de instructor/admin/cliente
+14 - Pensar y cerrar Files
+15 - FILES FILES FILES !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+16 - Agregar validacion si se quiere crear una ficha para un cliente que ya tiene una ficha existente
+17 - Agregar validacion para que solo se permita ingresar al usuario una vez al dia. Es decir, en Home/Access validar que solo ingrese 1 vez y guardar solo 1 vez por dia en BD
