@@ -4,11 +4,10 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalles grupo</h2>
 
 <div>
-    <h4>Group</h4>
-    <hr />
+        <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -27,32 +26,32 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.level)
+            @Html.DisplayNameFor(model => model.Level)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.level)
+            @Html.DisplayFor(model => model.Level)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.quota)
+            @Html.DisplayNameFor(model => model.Quota)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.quota)
+            @Html.DisplayFor(model => model.Quota)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.amount)
+            @Html.DisplayNameFor(model => model.Amount)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.amount)
+            @Html.DisplayFor(model => model.Amount)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.GroupID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.GroupID }) |
+    @Html.ActionLink("Volver a la lista", "Index")
 </p>

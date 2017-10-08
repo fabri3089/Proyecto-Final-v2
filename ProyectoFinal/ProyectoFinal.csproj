@@ -158,12 +158,12 @@
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InscripcionsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\MedicalRecordsController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\PaymentTypePricesController.cs" />
     <Compile Include="Controllers\PaymentTypesController.cs" />
+    <Compile Include="Controllers\RegistrationsController.cs" />
     <Compile Include="Controllers\RoutinesController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\StocksController.cs" />
@@ -179,9 +179,11 @@
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\GymContext.cs" />
-    <Compile Include="Models\Inscripcion.cs" />
+    <Compile Include="Models\Registration.cs" />
     <Compile Include="Models\Repositories\GroupRepository.cs" />
     <Compile Include="Models\Repositories\IGroupRepository.cs" />
+    <Compile Include="Models\Repositories\IRegistrationRepository.cs" />
+    <Compile Include="Models\Repositories\RegistrationRepository.cs" />
     <Compile Include="Models\Repositories\RoutineRepository.cs" />
     <Compile Include="Models\Repositories\SupplierRepository.cs" />
     <Compile Include="Models\Repositories\StockRepository.cs" />
@@ -402,11 +404,11 @@
     <Content Include="Views\Groups\Details.cshtml" />
     <Content Include="Views\Groups\Edit.cshtml" />
     <Content Include="Views\Groups\Index.cshtml" />
-    <Content Include="Views\Inscripcions\Create.cshtml" />
-    <Content Include="Views\Inscripcions\Delete.cshtml" />
-    <Content Include="Views\Inscripcions\Details.cshtml" />
-    <Content Include="Views\Inscripcions\Edit.cshtml" />
-    <Content Include="Views\Inscripcions\Index.cshtml" />
+    <Content Include="Views\Registrations\Create.cshtml" />
+    <Content Include="Views\Registrations\Delete.cshtml" />
+    <Content Include="Views\Registrations\Details.cshtml" />
+    <Content Include="Views\Registrations\Edit.cshtml" />
+    <Content Include="Views\Registrations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

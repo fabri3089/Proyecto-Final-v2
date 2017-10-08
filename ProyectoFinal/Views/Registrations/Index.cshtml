@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProyectoFinal.Models.Inscripcion>
+﻿@model IEnumerable<ProyectoFinal.Models.Registration>
 
 @{
     ViewBag.Title = "Index";
@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create new", "Create")
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
@@ -41,9 +41,9 @@
             @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.InscripcionID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.InscripcionID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.InscripcionID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.RegistrationID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RegistrationID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RegistrationID })
         </td>
     </tr>
 }

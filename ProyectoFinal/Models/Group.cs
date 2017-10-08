@@ -18,13 +18,13 @@ namespace ProyectoFinal.Models
         public string Description { get; set; }
         [DisplayName("Nivel")]
         [Required]
-        public string Level { get; set; }
+        public int Level { get; set; }
         [DisplayName("Cupo")]
         [Required]
         public int Quota { get; set; }
         [DisplayName("Cantidad de inscriptos")]
         [Required]
-        public string Amount { get; set; }
+        public int Amount { get; set; }
 
     }
 }

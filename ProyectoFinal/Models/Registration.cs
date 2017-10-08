@@ -7,9 +7,9 @@ using System.Web;
 
 namespace ProyectoFinal.Models
 {
-    public class Inscripcion
+    public class Registration
     {
-        public int InscripcionID { get; set; }
+        public int RegistrationID { get; set; }
 
         public DateTime CreationDate { get; set; }
 
