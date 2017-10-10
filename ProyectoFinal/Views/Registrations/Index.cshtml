@@ -1,51 +1,96 @@
-﻿@model IEnumerable<ProyectoFinal.Models.Registration>
-
+﻿@model PagedList.IPagedList<ProyectoFinal.Models.Registration>
+@using PagedList.Mvc;
+@using ProyectoFinal.Utils
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Inscripción a grupos</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Inscripción a un nuevo grupo", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Client.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Group.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
+<hr />
+<div class="container">
+    @using (Html.BeginForm("Index", "Registrations", FormMethod.Get, new { @class = "form-horizontal" }))
+    {
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3 col-md-4 col-lg-2" for="email">Buscar inscripciones:</label>
+            <div class="col-xs-6 col-sm-3 col-md-4 col-lg-3">
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control text-box single-line" })
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                <input type="submit" class="btn btn-default" value="Buscar" />
+            </div>
+        </div>
+    }
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Client.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Group.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RegistrationID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RegistrationID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RegistrationID })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr class="success">
+            <th>
+                @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().RegistrationID).ToHtmlString(),
+                                 "Index",
+                                 new { sortOrder = ViewBag.TypeSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            <th>
+                @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().CreationDate).ToHtmlString(),
+                                 "Index",
+                                 new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            <th>
+                @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().Status).ToHtmlString(),
+                                 "Index",
+                                 new { sortOrder = ViewBag.PriceSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            <th>
+                @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().ClientID).ToHtmlString(),
+                                 "Index",
+                                 new { sortOrder = ViewBag.StatusSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            <th>
+                @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().GroupID).ToHtmlString(),
+                                 "Index",
+                                 new { sortOrder = ViewBag.StatusSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            
+            <th>Acciones</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegistrationID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupID)
+                </td>
+                
+                <td>
+                    <a href="@Url.Action("Details", "Registrations", new { id = item.RegistrationID })" class="btn btn-primary btn-sm" title="Detalles">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </a>
+                    <a href="@Url.Action("Edit", "Registrations", new { id = item.RegistrationID })" class="btn btn-warning btn-sm" title="Editar">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </a>
+                    <a href="@Url.Action("Delete", "Registration", new { id = item.RegistrationID })" class="btn btn-danger btn-sm" title="Borrar">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

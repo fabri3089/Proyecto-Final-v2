@@ -13,6 +13,7 @@ namespace ProyectoFinal.Models.Repositories
         void InsertGroup(Group group);
         void DeleteGroup(int groupID);
         void UpdateGroup(Group group);
+        IEnumerable<Group> GetGroupsAvailable(int clientID);
         void Save();
     }
 }

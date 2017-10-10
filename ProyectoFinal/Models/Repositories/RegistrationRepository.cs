@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
 namespace ProyectoFinal.Models.Repositories
 {
-    public class RegistrationRepository
+    public class RegistrationRepository:IRegistrationRepository, IDisposable
     {
         #region Properties
         public GymContext context;
@@ -25,20 +26,20 @@ namespace ProyectoFinal.Models.Repositories
             return context.Registrations.ToList();
         }
 
-        public Group GetGroupByID(int id)
+        public Registration GetRegistrationByID(int id)
         {
-            return context.Groups.Find(id);
+            return context.Registrations.Find(id);
         }
 
-        public void InsertGroup(Group group)
+        public void InsertRegistration(Registration registration)
         {
-            context.Groups.Add(group);
+            context.Registrations.Add(registration);
         }
 
-        public void DeleteGroup(int id)
+        public void DeleteRegistration(int id)
         {
-            Group group = context.Groups.Find(id);
-            context.Groups.Remove(group);
+            Registration registration = context.Registrations.Find(id);
+            context.Registrations.Remove(registration);
         }
 
         public void Save()
@@ -46,9 +47,9 @@ namespace ProyectoFinal.Models.Repositories
             context.SaveChanges();
         }
 
-        public void UpdateGroup(Group Group)
+        public void UpdateRegistration(Registration Registration)
         {
-            context.Entry(Group).State = EntityState.Modified;
+            context.Entry(Registration).State = EntityState.Modified;
         }
 
         public void Dispose()
@@ -72,5 +73,4 @@ namespace ProyectoFinal.Models.Repositories
 
 
     }
-}
 }

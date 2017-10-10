@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoFinal.Models.Repositories
 {
-   public interface IRegistrationRepository
+   public interface IRegistrationRepository:IDisposable
     {
         IEnumerable<Registration> GetRegistrations();
         Registration GetRegistrationByID(int registrationID);

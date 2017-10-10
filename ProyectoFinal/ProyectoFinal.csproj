@@ -163,6 +163,7 @@
     <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\PaymentTypePricesController.cs" />
     <Compile Include="Controllers\PaymentTypesController.cs" />
+    <Compile Include="Controllers\RegistrationClientsController.cs" />
     <Compile Include="Controllers\RegistrationsController.cs" />
     <Compile Include="Controllers\RoutinesController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
@@ -409,6 +410,11 @@
     <Content Include="Views\Registrations\Details.cshtml" />
     <Content Include="Views\Registrations\Edit.cshtml" />
     <Content Include="Views\Registrations\Index.cshtml" />
+    <Content Include="Views\RegistrationClients\Create.cshtml" />
+    <Content Include="Views\RegistrationClients\Delete.cshtml" />
+    <Content Include="Views\RegistrationClients\Details.cshtml" />
+    <Content Include="Views\RegistrationClients\Edit.cshtml" />
+    <Content Include="Views\RegistrationClients\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

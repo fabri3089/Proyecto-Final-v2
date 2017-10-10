@@ -1,0 +1,104 @@
+﻿@model IEnumerable<ProyectoFinal.Models.Group>
+
+@{
+    ViewBag.Title = "Index";
+    IEnumerable<ProyectoFinal.Models.Registration> clientRegistrations =
+        ViewBag.ClientRegistrations as IEnumerable<ProyectoFinal.Models.Registration>;
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+ <table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Level)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quota)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Level)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quota)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.ActionLink("Inscribirse", "Create", new { id = item.GroupID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<br />
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            First Name
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Creation Date
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in clientRegistrations)
+{
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Group.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.RegistrationID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.RegistrationID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.RegistrationID })*@
+            </td>
+        </tr>
+    }
+
+</table>

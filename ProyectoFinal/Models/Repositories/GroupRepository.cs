@@ -31,6 +31,25 @@ namespace ProyectoFinal.Models.Repositories
             return context.Groups.Find(id);
         }
 
+        public IEnumerable<Group> GetGroupsAvailable(int clientID)
+        {
+            List<Group> groups = new List<Group>();
+            List<Group> groupsAvailable = context.Groups.ToList();
+
+
+            foreach (var group in groupsAvailable)
+            {
+                int id = group.GroupID;
+
+                var registration = context.Registrations
+                                          .Where(r => r.ClientID == clientID && r.GroupID == id).FirstOrDefault();
+
+                if (registration == null) groups.Add(group);
+                
+            }
+            return groups;
+        }
+
         public void InsertGroup(Group group)
         {
             context.Groups.Add(group);

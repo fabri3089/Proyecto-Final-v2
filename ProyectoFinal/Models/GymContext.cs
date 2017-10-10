@@ -49,7 +49,7 @@ namespace ProyectoFinal.Models
 
         public System.Data.Entity.DbSet<ProyectoFinal.Models.Group> Groups { get; set; }
 
-        public System.Data.Entity.DbSet<ProyectoFinal.Models.Registration> Registration { get; set; }
+        public System.Data.Entity.DbSet<ProyectoFinal.Models.Registration> Registrations { get; set; }
     }
 
     public class GymInitializer : DropCreateDatabaseAlways<GymContext>
@@ -350,15 +350,21 @@ namespace ProyectoFinal.Models
             #region Groups
             var groups = new List<Group>
             {
-                new Models.Group {Name="CrossFit 1", Description="Entrenamiento funcional para principiantes", Level=1, Quota=50, Amount=0 }
+                new Models.Group {Name="CrossFit 1", Description="Entrenamiento funcional para principiantes", Level=1, Quota=50, Amount=0 },
+                new Models.Group {Name="Pilates 1", Description="Entrenamiento funcional para principiantes", Level=1, Quota=150, Amount=0 }
             };
 
             groups.ForEach(a => context.Groups.Add(a));
             context.SaveChanges();
 
-            //groups.ForEach(a => context.Assistances.Add(a));
-            //context.SaveChanges();
-
+            #endregion
+            #region Registrations
+            var registrations = new List<Registration>
+            {
+                new Models.Registration {CreationDate=  new DateTime(2017,12,12), Status="Activo", ClientID=1, GroupID=1 }
+            };
+            registrations.ForEach(a => context.Registrations.Add(a));
+            context.SaveChanges();
             #endregion
         }
 

@@ -15,14 +15,14 @@ namespace ProyectoFinal.Models
 
         public string Status { get; set; }
 
-        [ForeignKey("ClientID")]
         [DisplayName("Cliente")]
-        public virtual Client Client { get; set; }
+        [ForeignKey("ClientID")]
+        public Client Client { get; set; }
         public int ClientID { get; set; }
 
-        [ForeignKey("GroupID")]
         [DisplayName("Grupo")]
-        public virtual Group Group { get; set; }
+        [ForeignKey("GroupID")]
+        public  Group Group { get; set; }
         public int GroupID { get; set; }
     }
 }
