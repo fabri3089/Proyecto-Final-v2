@@ -4,14 +4,21 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Eliminar grupo</h2>
+<h2>Eliminar Clase</h2>
 
-<h3>¿Estás seguro que quieres eliminar este grupo?</h3>
+<h3>¿Estás seguro que deseas eliminar este horario?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            Actividad
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity.Name)
+        </dd>
+        <dt>
+            Clase
         </dt>
 
         <dd>
@@ -49,10 +56,34 @@
         <dd>
             @Html.DisplayFor(model => model.Amount)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Day)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Day)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HourFrom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HourFrom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HourTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HourTo)
+        </dd>
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
@@ -61,3 +92,13 @@
         </div>
     }
 </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85232023-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

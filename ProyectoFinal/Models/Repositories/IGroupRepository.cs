@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace ProyectoFinal.Models.Repositories
 {
-    public interface IGroupRepository: IDisposable
+    public interface IGroupRepository : IDisposable
     {
         IEnumerable<Group> GetGroups();
         Group GetGroupByID(int groupID);
         void InsertGroup(Group group);
         void DeleteGroup(int groupID);
         void UpdateGroup(Group group);
-        IEnumerable<Group> GetGroupsAvailable(int clientID);
         void Save();
+        IEnumerable<Group> GetGroupsAvailable(int clientID);
     }
 }

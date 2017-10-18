@@ -71,7 +71,7 @@ namespace ProyectoFinal.Controllers
             #region OrderBy
             ViewBag.CreationDateSortParm = sortOrder == "creationDate_asc" ? "creationDate_desc" : "creation_asc";
             ViewBag.StatusSortParm = sortOrder == "status_asc" ? "status_desc" : "status_asc";
-            ViewBag.ClientSortParm = sortOrder == "client_asc" ? "client_desc" : "client_asc";
+            ViewBag.ClientSortParm = sortOrder == "client_asc" ? "client_desc": "client_asc";
             ViewBag.GroupSortParm = sortOrder == "group_asc" ? "group_desc" : "group_asc";
 
             switch (sortOrder)
@@ -89,16 +89,16 @@ namespace ProyectoFinal.Controllers
                     registrations = registrations.OrderByDescending(s => s.Status);
                     break;
                 case "client_asc":
-                    registrations = registrations.OrderBy(s => s.ClientID);
+                    registrations = registrations.OrderBy(s => s.Client.FirstName);
                     break;
                 case "client_desc":
-                    registrations = registrations.OrderByDescending(s => s.ClientID);
+                    registrations = registrations.OrderByDescending(s => s.Client.FirstName);
                     break;
                 case "group_asc":
-                    registrations = registrations.OrderBy(s => s.GroupID);
+                    registrations = registrations.OrderBy(s => s.Group.Name);
                     break;
                 case "group_desc":
-                    registrations = registrations.OrderByDescending(s => s.GroupID);
+                    registrations = registrations.OrderByDescending(s => s.Group.Name);
                     break;
                 default:
                     registrations = registrations.OrderBy(s => s.RegistrationID);
@@ -146,8 +146,8 @@ namespace ProyectoFinal.Controllers
                 registrationRepository.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.ClientID = new SelectList(clientRepository.GetClients(), "ClientID", "FirstName");
-            ViewBag.GroupID = new SelectList(groupRepository.GetGroups(), "GroupID", "Name");
+            ViewBag.ClientID = new SelectList(clientRepository.GetClients(), "ClientID", "FirstName", registration.ClientID);
+            ViewBag.GroupID = new SelectList(groupRepository.GetGroups(), "GroupID", "Name", registration.GroupID);
             return View(registration);
         }
 

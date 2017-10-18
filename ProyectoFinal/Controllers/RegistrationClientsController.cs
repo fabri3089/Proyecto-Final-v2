@@ -111,7 +111,7 @@ namespace ProyectoFinal.Controllers
         public ActionResult Create(Registration registration)
         {
             registration.CreationDate = DateTime.Now;
-            registration.Status = "Active";
+            //registration.Status = 1;
             
             registration.GroupID = Convert.ToInt32(Request.Params["GroupID"]);
             //registration.GroupID = (ViewBag.Group as Group).GroupID;

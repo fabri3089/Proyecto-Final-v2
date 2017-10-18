@@ -1,21 +1,20 @@
 ﻿@model PagedList.IPagedList<ProyectoFinal.Models.Group>
 @using PagedList.Mvc;
 @using ProyectoFinal.Utils
-@{ 
+@{
     ViewBag.Title = "Index";
 }
 
-<h2>Grupos</h2>
-
+<h2>Clases</h2>
 <p>
-    @Html.ActionLink("Crea un nuevo grupo", "Create")
+    @Html.ActionLink("Crea una nueva clase", "Create")
 </p>
 <hr />
 <div class="container">
     @using (Html.BeginForm("Index", "Groups", FormMethod.Get, new { @class = "form-horizontal" }))
     {
         <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 col-md-4 col-lg-2" for="email">Buscar por nombre:</label>
+            <label class="control-label col-xs-12 col-sm-3 col-md-4 col-lg-2" for="email">Buscar por actividad:</label>
             <div class="col-xs-6 col-sm-3 col-md-4 col-lg-3">
                 @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control text-box single-line" })
             </div>
@@ -25,78 +24,116 @@
         </div>
     }
 </div>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <tr class="success">
-                <th>
-                    @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().Name).ToHtmlString(),
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr class="success">
+            <th>
+                @Html.ActionLink("Actividad",
+                                 "Index",
+                                 new { sortOrder = ViewBag.ActivityNameSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span></th>
+            
+            <th>
+                @Html.ActionLink("Clase",
                                 "Index",
-                                new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
-                </th>
-                <th>
-                    @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().Description).ToHtmlString(),
+                                new { sortOrder = ViewBag.GroupNameSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span></th>
+
+            
+            <th>
+                @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().Description).ToHtmlString(),
                                 "Index",
                                 new { sortOrder = ViewBag.SurnameSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
 
-                </th>
-                <th>
-                    @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().Level).ToHtmlString(),
+            </th>
+            <th>
+                @Html.ActionLink("Nivel",
                                 "Index",
-                                new { sortOrder = ViewBag.DocTypeSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
-                </th>
-                <th>
-                    @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().Quota).ToHtmlString(),
+                                new { sortOrder = ViewBag.LevelSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
+            </th>
+
+            <th>
+                @Html.ActionLink("Cupo",
                                 "Index",
-                                new { sortOrder = ViewBag.DocNumberSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
-                </th>
-                <th>
-                    @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().Amount).ToString(),
+                                new { sortOrder = ViewBag.QuotaSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            <th>
+                @Html.ActionLink("Cantidad de inscriptos",
                                 "Index",
-                                new { sortOrder = ViewBag.BirthDateSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
-                </th>
-               
-                <th class="actions">Acciones</th>
+                                new { sortOrder = ViewBag.AmountSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            <th>
+                @Html.ActionLink("Día",
+                                 "Index",
+                                 new { sortOrder = ViewBag.DaySortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            <th>
+                @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().HourFrom).ToHtmlString(),
+                                                      "Index",
+                                                      new { sortOrder = ViewBag.HourFromSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span></th>
+            <th>
+                @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().HourTo).ToHtmlString(),
+                                                      "Index",
+                                                      new { sortOrder = ViewBag.HourToSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span></th>
+            <th class="">Acciones</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Activity.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Level)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quota)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Day)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HourFrom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HourTo)
+                </td>
+                <td>
+                    <a href="@Url.Action("Details", "Groups", new { id = item.GroupID })" class="btn btn-primary btn-sm" title="Detalles">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </a>
+                    <a href="@Url.Action("Edit", "Groups", new { id = item.GroupID })" class="btn btn-warning btn-sm" title="Editar">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </a>
+                    <a href="@Url.Action("Delete", "Groups", new { id = item.GroupID })" class="btn btn-danger btn-sm" title="Borrar">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </a>
+                </td>
             </tr>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Level)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Quota)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Amount)
-                    </td>
-                    
-                    <td>
-                        <a href="@Url.Action("Details", "Groups", new { id = item.GroupID })" class="btn btn-primary btn-sm" title="Detalles">
-                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        </a>
-                        <a href="@Url.Action("Edit", "Groups", new { id = item.GroupID })" class="btn btn-warning btn-sm" title="Editar">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                        </a>
-                        <a href="@Url.Action("Delete", "Groups", new { id = item.GroupID })" class="btn btn-danger btn-sm" title="Borrar">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        </a>
-                        <a class="btn btn-link btn-sm">
-                            <span class="" aria-hidden="true"></span>
-                        </a>
-                   
-                    </td>
-                </tr>
-            }
-        </table>
-    </div>
+        }
+
+    </table>
+</div>
 Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
+  ga('create', 'UA-85232023-1', 'auto');
+  ga('send', 'pageview');
 
+</script>

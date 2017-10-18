@@ -13,12 +13,12 @@ namespace ProyectoFinal.Tests
     [TestClass]
     public class ActivitySchedulesControllerTest
     {
-        List<ActivitySchedule> activitySchedules;
+        List<Group> activitySchedules;
         List<Activity> activities;
-        ActivitySchedule newActivitySchedule;
-        IActivityScheduleRepository activitySchedulesRepository;
+        Group newActivitySchedule;
+        IGroupRepository activitySchedulesRepository;
         IActivityRepository activityRepository;
-        ActivitySchedulesController controller;
+        GroupsController controller;
         public const int ACTIVITY_SCHEDULE_ID_TO_USE = 1;
         public const int ACTIVITY_SCHEDULE_ID_NOT_FOUND = 33000;
 
@@ -34,24 +34,24 @@ namespace ProyectoFinal.Tests
             };
 
 
-            activitySchedules = new List<ActivitySchedule>
+           /* activitySchedules = new List<Group>
             {
-                new ActivitySchedule { ActivityScheduleID = 1, ActivityID = 1, Day = "Lunes a Viernes", HourFrom = 08, HourTo = 22, Activity = activities.ElementAt(0)},
-                new ActivitySchedule { ActivityScheduleID = 2, ActivityID = 2, Day = "Lunes", HourFrom = 11, HourTo = 12, Activity = activities.ElementAt(1)},
-                new ActivitySchedule { ActivityScheduleID = 3, ActivityID = 2, Day = "Lunes", HourFrom = 16, HourTo = 17, Activity = activities.ElementAt(1)},
-                new ActivitySchedule { ActivityScheduleID = 4, ActivityID = 2, Day = "Miércoles", HourFrom = 19, HourTo = 21, Activity = activities.ElementAt(2)},
-                new ActivitySchedule { ActivityScheduleID = 5, ActivityID = 3, Day = "Miércoles", HourFrom = 9, HourTo = 10, Activity = activities.ElementAt(2)},
-                new ActivitySchedule { ActivityScheduleID = 6, ActivityID = 3, Day = "Miércoles", HourFrom = 20, HourTo = 21, Activity = activities.ElementAt(1)},
+                new Group { ActivityScheduleID = 1, ActivityID = 1, Day = "Lunes a Viernes", HourFrom = 08, HourTo = 22, Activity = activities.ElementAt(0)},
+                new Group { ActivityScheduleID = 2, ActivityID = 2, Day = "Lunes", HourFrom = 11, HourTo = 12, Activity = activities.ElementAt(1)},
+                new Group { ActivityScheduleID = 3, ActivityID = 2, Day = "Lunes", HourFrom = 16, HourTo = 17, Activity = activities.ElementAt(1)},
+                new Group { ActivityScheduleID = 4, ActivityID = 2, Day = "Miércoles", HourFrom = 19, HourTo = 21, Activity = activities.ElementAt(2)},
+                new Group { ActivityScheduleID = 5, ActivityID = 3, Day = "Miércoles", HourFrom = 9, HourTo = 10, Activity = activities.ElementAt(2)},
+                new Group { ActivityScheduleID = 6, ActivityID = 3, Day = "Miércoles", HourFrom = 20, HourTo = 21, Activity = activities.ElementAt(1)},
             };
-
+            */
             #endregion
 
             #region Dummy New Activity
-            newActivitySchedule = new ActivitySchedule { ActivityID = 1, Day = "Lunes y Jueves", HourFrom = 16, HourTo = 18 };
+            newActivitySchedule = new Group { ActivityID = 1, Day = "Lunes y Jueves", HourFrom = 16, HourTo = 18 };
             #endregion
 
             #region Repositories
-            activitySchedulesRepository = Mock.Create<IActivityScheduleRepository>();
+            activitySchedulesRepository = Mock.Create<IGroupRepository>();
             activityRepository = Mock.Create<IActivityRepository>();
             #endregion
 
@@ -68,7 +68,7 @@ namespace ProyectoFinal.Tests
             #endregion
 
             #region Controller creation
-            controller = new ActivitySchedulesController(activitySchedulesRepository, activityRepository);
+            controller = new GroupsController(activitySchedulesRepository, activityRepository);
             #endregion
         }
 
@@ -77,7 +77,7 @@ namespace ProyectoFinal.Tests
         {
             // Arrange
             ViewResult viewResult = controller.Index(string.Empty, string.Empty, string.Empty, 1) as ViewResult;
-            var model = viewResult.Model as IEnumerable<ActivitySchedule>;
+            var model = viewResult.Model as IEnumerable<Group>;
 
             Assert.IsNotNull(model);
             Assert.AreEqual(model.Count(), activitySchedules.Count);
@@ -90,7 +90,7 @@ namespace ProyectoFinal.Tests
             const string SORT_MODE_DESC = "desc"; //change for asc if necessary
 
             ViewResult viewResult = controller.Index(SORT_ORDER_DESC, string.Empty, string.Empty, 1) as ViewResult;
-            var model = viewResult.Model as IEnumerable<ActivitySchedule>;
+            var model = viewResult.Model as IEnumerable<Group>;
 
             if (SORT_MODE_DESC == "desc")
                 activitySchedules = activitySchedules.OrderByDescending(a => a.Activity.Name).ToList();
@@ -107,7 +107,7 @@ namespace ProyectoFinal.Tests
             const string SEARCHSTRING = "Boxeo";
 
             ViewResult viewResult = controller.Index(string.Empty, string.Empty, SEARCHSTRING, 1) as ViewResult;
-            var model = viewResult.Model as IEnumerable<ActivitySchedule>;
+            var model = viewResult.Model as IEnumerable<Group>;
 
             Assert.IsNotNull(model);
             Assert.AreEqual(model.Except(model.Where(a => a.Activity.Name.Contains(SEARCHSTRING))).Count(), 0);
@@ -119,7 +119,7 @@ namespace ProyectoFinal.Tests
             var activity = activitySchedules.Where(a => a.ActivityID == ACTIVITY_SCHEDULE_ID_TO_USE).FirstOrDefault();
 
             ViewResult viewResult = controller.Details(ACTIVITY_SCHEDULE_ID_TO_USE) as ViewResult;
-            var model = viewResult.Model as ActivitySchedule;
+            var model = viewResult.Model as Group;
 
             Assert.IsNotNull(model);
             Assert.AreEqual(model.ActivityID, ACTIVITY_SCHEDULE_ID_TO_USE);

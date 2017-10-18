@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ProyectoFinal.Models.Repositories
 {
-    public class GroupRepository: IGroupRepository, IDisposable
+    public class GroupRepository : IGroupRepository, IDisposable
     {
         #region Properties
         public GymContext context;
@@ -20,34 +20,15 @@ namespace ProyectoFinal.Models.Repositories
         }
         #endregion
 
-        #region Interface implementation
+        #region Interface Implementation
         public IEnumerable<Group> GetGroups()
         {
-            return context.Groups.ToList();
+            return context.Groups.Include(a => a.Activity).ToList();
         }
 
         public Group GetGroupByID(int id)
         {
-            return context.Groups.Find(id);
-        }
-
-        public IEnumerable<Group> GetGroupsAvailable(int clientID)
-        {
-            List<Group> groups = new List<Group>();
-            List<Group> groupsAvailable = context.Groups.ToList();
-
-
-            foreach (var group in groupsAvailable)
-            {
-                int id = group.GroupID;
-
-                var registration = context.Registrations
-                                          .Where(r => r.ClientID == clientID && r.GroupID == id).FirstOrDefault();
-
-                if (registration == null) groups.Add(group);
-                
-            }
-            return groups;
+            return context.Groups.Include(a => a.Activity).Where(a => a.GroupID == id).FirstOrDefault();
         }
 
         public void InsertGroup(Group group)
@@ -66,9 +47,9 @@ namespace ProyectoFinal.Models.Repositories
             context.SaveChanges();
         }
 
-        public void UpdateGroup(Group Group)
+        public void UpdateGroup(Group group)
         {
-            context.Entry(Group).State = EntityState.Modified;
+            context.Entry(group).State = EntityState.Modified;
         }
 
         public void Dispose()
@@ -77,6 +58,24 @@ namespace ProyectoFinal.Models.Repositories
             GC.SuppressFinalize(this);
         }
         #endregion
+        public IEnumerable<Group> GetGroupsAvailable(int clientID)
+        {
+            List<Group> groups = new List<Group>();
+            List<Group> groupsAvailable = context.Groups.ToList();
+
+
+            foreach (var group in groupsAvailable)
+            {
+                int id = group.GroupID;
+
+                var registration = context.Registrations
+                                          .Where(r => r.ClientID == clientID && r.GroupID == id).FirstOrDefault();
+
+                if (registration == null) groups.Add(group);
+
+            }
+            return groups;
+        }
 
         protected virtual void Dispose(bool disposing)
         {
@@ -89,7 +88,5 @@ namespace ProyectoFinal.Models.Repositories
             }
             this.disposed = true;
         }
-
-
     }
 }

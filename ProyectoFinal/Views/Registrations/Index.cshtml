@@ -37,24 +37,34 @@
             <th>
                 @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().CreationDate).ToHtmlString(),
                                  "Index",
-                                 new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
+                                 new { sortOrder = ViewBag.CreationDateSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
             </th>
             <th>
                 @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().Status).ToHtmlString(),
                                  "Index",
-                                 new { sortOrder = ViewBag.PriceSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
-            </th>
-            <th>
-                @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().ClientID).ToHtmlString(),
-                                 "Index",
                                  new { sortOrder = ViewBag.StatusSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
             </th>
             <th>
-                @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().GroupID).ToHtmlString(),
+                @Html.ActionLink("Clase",
                                  "Index",
-                                 new { sortOrder = ViewBag.StatusSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
+                                 new { sortOrder = ViewBag.GroupSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
             </th>
-            
+            <th>
+                @Html.ActionLink("Cliente",
+                                 "Index",
+                                 new { sortOrder = ViewBag.ClientSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            @*<th>
+        @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().ClientID).ToHtmlString(),
+                         "Index",
+                         new { sortOrder = ViewBag.StatusSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
+    </th>
+    <th>
+        @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().GroupID).ToHtmlString(),
+                         "Index",
+                         new { sortOrder = ViewBag.StatusSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
+    </th>
+            *@
             <th>Acciones</th>
         </tr>
         @foreach (var item in Model)
@@ -70,10 +80,10 @@
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ClientID)
+                    @Html.DisplayFor(modelItem => item.Client.FirstName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.GroupID)
+                    @Html.DisplayFor(modelItem => item.Group.Name)
                 </td>
                 
                 <td>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoFinal.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,18 +14,16 @@ namespace ProyectoFinal.Models
         [DisplayName("Fecha de alta")]
         public DateTime CreationDate { get; set; }
         [DisplayName("Estado")]
-        public string Status { get; set; }
+        public Catalog.Status Status { get; set; }
 
         [DisplayName("Cliente")]
         [ForeignKey("ClientID")]
         public Client Client { get; set; }
-        [DisplayName("Cliente")]
         public int ClientID { get; set; }
 
         [DisplayName("Grupo")]
         [ForeignKey("GroupID")]
         public  Group Group { get; set; }
-        [DisplayName("Grupo")]
         public int GroupID { get; set; }
     }
 }

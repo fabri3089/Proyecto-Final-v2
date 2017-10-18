@@ -22,7 +22,7 @@ namespace ProyectoFinal.Models
         #region DbSets
         public DbSet<Activity> Activities { get; set; }
 
-        public DbSet<ActivitySchedule> ActivitySchedules { get; set; }
+        public DbSet<Group> Groups { get; set; }
 
         public DbSet<Assistance> Assistances { get; set; }
 
@@ -47,7 +47,7 @@ namespace ProyectoFinal.Models
         public DbSet<Supplier> Suppliers { get; set; }
         #endregion
 
-        public System.Data.Entity.DbSet<ProyectoFinal.Models.Group> Groups { get; set; }
+      //  public System.Data.Entity.DbSet<ProyectoFinal.Models.OldGroup> Groups { get; set; }
 
         public System.Data.Entity.DbSet<ProyectoFinal.Models.Registration> Registrations { get; set; }
     }
@@ -193,20 +193,7 @@ namespace ProyectoFinal.Models
             context.SaveChanges();
             #endregion
 
-            #region ActivitySchedules
-            var activitySchedules = new List<ActivitySchedule>
-            {
-                new ActivitySchedule { ActivityID = 2, Day = "Lunes", HourFrom = 11, HourTo = 12},
-                new ActivitySchedule { ActivityID = 2, Day = "Lunes", HourFrom = 16, HourTo = 17},
-                new ActivitySchedule { ActivityID = 2, Day = "Miércoles", HourFrom = 19, HourTo = 21},
-                new ActivitySchedule { ActivityID = 3, Day = "Miércoles", HourFrom = 9, HourTo = 10},
-                new ActivitySchedule { ActivityID = 3, Day = "Miércoles", HourFrom = 20, HourTo = 21},
-            };
-
-            activitySchedules.ForEach(actS => context.ActivitySchedules.Add(actS));
-            context.SaveChanges();
-            #endregion
-
+      
             #region Files
             var files = new List<File>
             {
@@ -371,34 +358,25 @@ namespace ProyectoFinal.Models
             context.SaveChanges();
             #endregion
 
-           /* #region Groups
+            #region Groups
             var groups = new List<Group>
             {
-                new Models.Group {Name="CrossFit 1", Description="Entrenamiento funcional con pesas para principiantes", Level=Catalog.LevelGroup.Begginer, Quota=50, Amount=0, StartTime=new DateTime(2017,12,12) },
-                new Models.Group {Name="Pilates 1", Description="Pilates", Level=Catalog.LevelGroup.Begginer, Quota=150, Amount=0 },
-                new Models.Group {Name="CrossFit 2", Description="Entrenamiento funcional con pesas nivel medio", Level=Catalog.LevelGroup.Medium, Quota=50, Amount=0 },
-                new Models.Group {Name="Zumba 1", Description="Mezcla de ritmos latinos con ejercicios aeróbicos", Level=Catalog.LevelGroup.Begginer, Quota=150, Amount=0 }
-                
-                new Models.Group {Name="CrossFit 1", Description="Entrenamiento funcional con pesas para principiantes", Level=1, Quota=50, Amount=0, StartTime=new DateTime(2017,12,12) },
-                new Models.Group {Name="Pilates 1", Description="Pilates", Level=1, Quota=150, Amount=0 },
-                new Models.Group {Name="CrossFit 2", Description="Entrenamiento funcional con pesas nivel medio", Level=2, Quota=50, Amount=0 },
-                new Models.Group {Name="Zumba 1", Description="Mezcla de ritmos latinos con ejercicios aeróbicos", Level=1, Quota=150, Amount=0 }
-            };
-
-            groups.ForEach(a => context.Groups.Add(a));
+                new Models.Group {Name="CrossFit", Description="Entrenamiento funcional con pesas", Level=Catalog.LevelGroup.Begginer, Quota=20, Amount=0, Day="Lunes", HourFrom=13, HourTo=14, ActivityID=1 },
+                new Models.Group {Name="CrossFit", Description="Entrenamiento funcional con pesas", Level=Catalog.LevelGroup.Medium, Quota=20, Amount=0, Day="Lunes", HourFrom=14, HourTo=15, ActivityID=1 },
+                new Models.Group {Name="Pilates", Description="Entrenamiento de enlongación", Level=Catalog.LevelGroup.Begginer, Quota=20, Amount=0, Day="Lunes", HourFrom=13, HourTo=14, ActivityID=2 }
+            }; groups.ForEach(a => context.Groups.Add(a));
             context.SaveChanges();
-
             #endregion
 
-           /* #region Registrations
-            var registrations = new List<Registration>
-            {
-                new Models.Registration {CreationDate=  new DateTime(2017,12,12), Status="Activo", ClientID=1, GroupID=1 },
-                new Models.Registration {CreationDate=  new DateTime(2017,12,12), Status="Activo", ClientID=1, GroupID=2 }
-            };
-            registrations.ForEach(a => context.Registrations.Add(a));
-            context.SaveChanges();
-            #endregion*/
+             #region Registrations
+             var registrations = new List<Registration>
+             {
+                 new Models.Registration {CreationDate=  new DateTime(2017,12,12), Status=Catalog.Status.Active, ClientID=1, GroupID=1 },
+                 new Models.Registration {CreationDate=  new DateTime(2017,12,12), Status=Catalog.Status.Active, ClientID=1, GroupID=2 }
+             };
+             registrations.ForEach(a => context.Registrations.Add(a));
+             context.SaveChanges();
+             #endregion
         }
 
     }
