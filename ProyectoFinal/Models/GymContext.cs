@@ -78,6 +78,14 @@ namespace ProyectoFinal.Models
             var password9 = PasswordUtilities.GenerateSHA256Hash("335588", passwordSalt9);
             var passwordSalt10 = PasswordUtilities.CreateSalt(16);
             var password10 = PasswordUtilities.GenerateSHA256Hash("335588", passwordSalt10);
+            var passwordSalt11 = PasswordUtilities.CreateSalt(16);
+            var password11 = PasswordUtilities.GenerateSHA256Hash("234566", passwordSalt11);
+            var passwordSalt12 = PasswordUtilities.CreateSalt(16);
+            var password12 = PasswordUtilities.GenerateSHA256Hash("234566", passwordSalt12);
+            var passwordSalt13 = PasswordUtilities.CreateSalt(16);
+            var password13 = PasswordUtilities.GenerateSHA256Hash("234566", passwordSalt13);
+            var passwordSalt14 = PasswordUtilities.CreateSalt(16);
+            var password14 = PasswordUtilities.GenerateSHA256Hash("234566", passwordSalt14);
 
             var clients = new List<Client>
             {
@@ -119,7 +127,23 @@ namespace ProyectoFinal.Models
 
                 new Client { FirstName = "José", LastName = "García", DocType = "DNI", DocNumber = 34578644, BirthDate = new DateTime(1986, 12, 31),
                 DateFrom = new DateTime(2016, 09, 01), Email = "joseg@hotmail.com",
-                Password = password10, PasswordSalt = passwordSalt10, Role = Catalog.Roles.Client, Sexo = Catalog.Genre.Hombre }
+                Password = password10, PasswordSalt = passwordSalt10, Role = Catalog.Roles.Client, Sexo = Catalog.Genre.Hombre },
+               
+                new Client { FirstName = "Administrador", LastName = "Administrador", DocType = "DNI", DocNumber = 34578644, BirthDate = new DateTime(1986, 12, 31),
+                DateFrom = new DateTime(2016, 09, 01), Email = "administrador@hotmail.com",
+                Password = password11, PasswordSalt = passwordSalt11, Role = Catalog.Roles.Admin, Sexo = Catalog.Genre.Hombre },
+
+                new Client { FirstName = "Instructor", LastName = "Instructor", DocType = "DNI", DocNumber = 34578644, BirthDate = new DateTime(1986, 12, 31),
+                DateFrom = new DateTime(2016, 09, 01), Email = "instructor@hotmail.com",
+                Password = password12, PasswordSalt = passwordSalt12, Role = Catalog.Roles.Instructor, Sexo = Catalog.Genre.Hombre },
+
+                new Client { FirstName = "Cliente", LastName = "Cliente", DocType = "DNI", DocNumber = 34578644, BirthDate = new DateTime(1986, 12, 31),
+                DateFrom = new DateTime(2016, 09, 01), Email = "cliente@hotmail.com",
+                Password = password13, PasswordSalt = passwordSalt13, Role = Catalog.Roles.Client, Sexo = Catalog.Genre.Hombre },
+
+                new Client { FirstName = "Fabricio", LastName = "Montes", DocType = "DNI", DocNumber = 34965835, BirthDate = new DateTime(1986, 12, 31),
+                DateFrom = new DateTime(2016, 09, 01), Email = "fabri_3089@hotmail.com",
+                Password = password14, PasswordSalt = passwordSalt14, Role = Catalog.Roles.Admin, Sexo = Catalog.Genre.Hombre }
             };
 
             clients.ForEach(c => context.Clients.Add(c));
@@ -347,25 +371,34 @@ namespace ProyectoFinal.Models
             context.SaveChanges();
             #endregion
 
-            #region Groups
+           /* #region Groups
             var groups = new List<Group>
             {
-                new Models.Group {Name="CrossFit 1", Description="Entrenamiento funcional para principiantes", Level=1, Quota=50, Amount=0 },
-                new Models.Group {Name="Pilates 1", Description="Entrenamiento funcional para principiantes", Level=1, Quota=150, Amount=0 }
+                new Models.Group {Name="CrossFit 1", Description="Entrenamiento funcional con pesas para principiantes", Level=Catalog.LevelGroup.Begginer, Quota=50, Amount=0, StartTime=new DateTime(2017,12,12) },
+                new Models.Group {Name="Pilates 1", Description="Pilates", Level=Catalog.LevelGroup.Begginer, Quota=150, Amount=0 },
+                new Models.Group {Name="CrossFit 2", Description="Entrenamiento funcional con pesas nivel medio", Level=Catalog.LevelGroup.Medium, Quota=50, Amount=0 },
+                new Models.Group {Name="Zumba 1", Description="Mezcla de ritmos latinos con ejercicios aeróbicos", Level=Catalog.LevelGroup.Begginer, Quota=150, Amount=0 }
+                
+                new Models.Group {Name="CrossFit 1", Description="Entrenamiento funcional con pesas para principiantes", Level=1, Quota=50, Amount=0, StartTime=new DateTime(2017,12,12) },
+                new Models.Group {Name="Pilates 1", Description="Pilates", Level=1, Quota=150, Amount=0 },
+                new Models.Group {Name="CrossFit 2", Description="Entrenamiento funcional con pesas nivel medio", Level=2, Quota=50, Amount=0 },
+                new Models.Group {Name="Zumba 1", Description="Mezcla de ritmos latinos con ejercicios aeróbicos", Level=1, Quota=150, Amount=0 }
             };
 
             groups.ForEach(a => context.Groups.Add(a));
             context.SaveChanges();
 
             #endregion
-            #region Registrations
+
+           /* #region Registrations
             var registrations = new List<Registration>
             {
-                new Models.Registration {CreationDate=  new DateTime(2017,12,12), Status="Activo", ClientID=1, GroupID=1 }
+                new Models.Registration {CreationDate=  new DateTime(2017,12,12), Status="Activo", ClientID=1, GroupID=1 },
+                new Models.Registration {CreationDate=  new DateTime(2017,12,12), Status="Activo", ClientID=1, GroupID=2 }
             };
             registrations.ForEach(a => context.Registrations.Add(a));
             context.SaveChanges();
-            #endregion
+            #endregion*/
         }
 
     }

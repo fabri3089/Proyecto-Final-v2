@@ -85,7 +85,16 @@
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink("Actividades", "Catalog", "Activities")</li>
                                 <li>@Html.ActionLink("Abonos", "Catalog", "PaymentTypes")</li>
-                                <li>@Html.ActionLink("Inscripción a Grupos", "Index", "Registrations")</li>
+                          
+                                      @*<li>@Html.ActionLink("Inscripción a Grupos", "Index", "Registrations")</li>*@
+                                @if (Session["Role"] != null && Session["User"] != null && Session["Role"].ToString() == "Instructor")
+                                {
+                                    <li>@Html.ActionLink("Inscripción a Grupos", "Index", "Registrations")</li>
+                                }
+                                @if (Session["Role"] != null && Session["User"] != null && Session["Role"].ToString() == "Client")
+                                {
+                                    <li>@Html.ActionLink("Inscripción a Grupos", "Index", "RegistrationClients", null, null)</li>
+                                }
                             </ul>
                         </li>
                     }

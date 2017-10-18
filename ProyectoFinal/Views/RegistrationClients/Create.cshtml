@@ -6,7 +6,7 @@
     var client = ViewBag.Client as ProyectoFinal.Models.Client;
 }
 
-<h2>Create</h2>
+<h2>Inscripción a grupos</h2>
 
 
 @using (Html.BeginForm()) 
@@ -16,7 +16,7 @@
     @Html.Hidden("GroupID", group.GroupID)
 
     <div class="form-horizontal">
-        <h4>Registration</h4>
+       
         <hr />
 
         <div class="form-group">
@@ -42,7 +42,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Volver a la lista", "Index")
 </div>
 
 @section Scripts {

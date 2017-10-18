@@ -112,15 +112,17 @@ namespace ProyectoFinal.Controllers
         [AuthorizationPrivilege(Role = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "GroupID,Name,Description,Level,Quota,Amount")] Group group)
+        public ActionResult Create([Bind(Include = "GroupID,Name,Description,Level,Amount,StartTime,ClosingTime")] Group group)
         {
+            group.Amount = 0;
             if (ModelState.IsValid)
             {
                 groupRepository.InsertGroup(group);
                 groupRepository.Save();
                 return RedirectToAction("Index");
             }
-
+            
+            
             return View(group);
         }
 

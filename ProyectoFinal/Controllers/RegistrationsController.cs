@@ -41,10 +41,11 @@ namespace ProyectoFinal.Controllers
         }
         #endregion
         private GymContext db = new GymContext();
-
+        
         //GET: Registrations
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+
             ViewBag.CurrentSort = sortOrder;
             if (searchString != null)
             {
@@ -122,6 +123,7 @@ namespace ProyectoFinal.Controllers
             {
                 return HttpNotFound();
             }
+           
             return View(registration);
         }
         public ActionResult Create()
@@ -197,6 +199,7 @@ namespace ProyectoFinal.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(registration);
         }
 
