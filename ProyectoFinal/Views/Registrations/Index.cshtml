@@ -44,15 +44,16 @@
                                  "Index",
                                  new { sortOrder = ViewBag.StatusSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
             </th>
-            <th>
-                @Html.ActionLink("Clase",
-                                 "Index",
-                                 new { sortOrder = ViewBag.GroupSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
-            </th>
+           
             <th>
                 @Html.ActionLink("Cliente",
                                  "Index",
-                                 new { sortOrder = ViewBag.ClientSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
+                                 new { sortOrder = ViewBag.ClientFirstNameSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            <th>
+                @Html.ActionLink("Clase",
+                                 "Index",
+                                 new { sortOrder = ViewBag.GroupNameSortParm, currentFilter = ViewBag.CurrentFilter }) <span class="glyphicon glyphicon-sort"></span>
             </th>
             @*<th>
         @Html.ActionLink(@Html.DisplayNameFor(model => model.FirstOrDefault().ClientID).ToHtmlString(),

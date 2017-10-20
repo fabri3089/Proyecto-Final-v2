@@ -10,6 +10,9 @@ namespace ProyectoFinal.Models.Repositories
     {
         IEnumerable<Group> GetGroups();
         Group GetGroupByID(int groupID);
+        bool AlumnoGrupo(int clientID, int groupID);
+        void AgregarAlumno(int groupID);
+        void EliminarInscripto(int groupID);
         void InsertGroup(Group group);
         void DeleteGroup(int groupID);
         void UpdateGroup(Group group);

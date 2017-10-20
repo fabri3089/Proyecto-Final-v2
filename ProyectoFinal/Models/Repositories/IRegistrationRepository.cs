@@ -13,6 +13,7 @@ namespace ProyectoFinal.Models.Repositories
         void InsertRegistration(Registration registration);
         void DeleteRegistration(int registrationID);
         void UpdateRegistration(Registration registration);
+        void EliminarInscripto(int groupID);
         void Save();
     }
 }

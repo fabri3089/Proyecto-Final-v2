@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using ProyectoFinal.Models;
 using ProyectoFinal.Models.Repositories;
 using ProyectoFinal.Filters;
+using ProyectoFinal.Utils;
 
 namespace ProyectoFinal.Controllers
 {
@@ -112,13 +113,16 @@ namespace ProyectoFinal.Controllers
         {
             registration.CreationDate = DateTime.Now;
             //registration.Status = 1;
-            
+          //  int groupID = Convert.ToInt32(Request.Params["GroupID"]);
             registration.GroupID = Convert.ToInt32(Request.Params["GroupID"]);
+            int groupID = registration.GroupID;
             //registration.GroupID = (ViewBag.Group as Group).GroupID;
             registration.ClientID = this.GetLoggedUser().ClientID;
-
+            registration.Status = Catalog.Status.Active;
             if (ModelState.IsValid)
             {
+                groupRepository.AgregarAlumno(groupID);
+                groupRepository.Save();
                 db.Registrations.Add(registration);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -184,8 +188,12 @@ namespace ProyectoFinal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            
             Registration registration = db.Registrations.Find(id);
+            var groupID = registration.GroupID;
             db.Registrations.Remove(registration);
+            groupRepository.EliminarInscripto(groupID);
+            groupRepository.Save();
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -77,6 +77,37 @@ namespace ProyectoFinal.Models.Repositories
             return groups;
         }
 
+        public bool AlumnoGrupo(int clientID, int groupID)
+        { 
+            var a = context.Registrations.Where(r => r.ClientID == clientID && r.GroupID == groupID).FirstOrDefault();
+            if (a == null) 
+            {
+                return false;
+            }
+            return true;
+        }
+        public void AgregarAlumno(int groupID)
+        {
+            List<Group> groups = context.Groups.ToList();
+            var a = context.Groups.Where(r => r.GroupID == groupID).FirstOrDefault();
+            if (a != null)
+            {
+                a.Amount = a.Amount + 1;
+            }
+                
+            
+        }
+        public void EliminarInscripto(int groupID)
+        {
+            List<Group> groups = context.Groups.ToList();
+            var a = context.Groups.Where(r => r.GroupID == groupID).FirstOrDefault();
+            if (a != null)
+            {
+                a.Amount = a.Amount - 1;
+            }
+
+
+        }
         protected virtual void Dispose(bool disposing)
         {
             if (!this.disposed)

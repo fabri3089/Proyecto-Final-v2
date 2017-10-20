@@ -376,7 +376,20 @@ namespace ProyectoFinal.Models
              };
              registrations.ForEach(a => context.Registrations.Add(a));
              context.SaveChanges();
-             #endregion
+            #endregion
+
+            #region updateAmount
+            var inscripciones = context.Registrations.ToList();
+            foreach (var item in inscripciones)
+            {
+                var clase = context.Groups.Where(g => g.GroupID == item.GroupID).FirstOrDefault();
+                if(clase!=null)
+                {
+                    clase.Amount += 1;
+                }
+            }
+            context.SaveChanges();
+            #endregion
         }
 
     }

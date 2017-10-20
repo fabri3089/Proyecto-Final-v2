@@ -41,7 +41,7 @@ namespace ProyectoFinal.Controllers
         }
         #endregion
         private GymContext db = new GymContext();
-        
+
         //GET: Registrations
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
@@ -71,8 +71,8 @@ namespace ProyectoFinal.Controllers
             #region OrderBy
             ViewBag.CreationDateSortParm = sortOrder == "creationDate_asc" ? "creationDate_desc" : "creation_asc";
             ViewBag.StatusSortParm = sortOrder == "status_asc" ? "status_desc" : "status_asc";
-            ViewBag.ClientSortParm = sortOrder == "client_asc" ? "client_desc": "client_asc";
-            ViewBag.GroupSortParm = sortOrder == "group_asc" ? "group_desc" : "group_asc";
+            ViewBag.ClientFirstNameSortParm = sortOrder == "FirstName_asc" ? "FirstName_desc" : "FirstName_asc";
+            ViewBag.GroupNameSortParm = sortOrder == "name_asc" ? "name_desc" : "name_asc";
 
             switch (sortOrder)
             {
@@ -88,16 +88,16 @@ namespace ProyectoFinal.Controllers
                 case "article_desc":
                     registrations = registrations.OrderByDescending(s => s.Status);
                     break;
-                case "client_asc":
+                case "FirstName_asc":
                     registrations = registrations.OrderBy(s => s.Client.FirstName);
                     break;
-                case "client_desc":
+                case "FirstName_desc":
                     registrations = registrations.OrderByDescending(s => s.Client.FirstName);
                     break;
-                case "group_asc":
+                case "name_asc":
                     registrations = registrations.OrderBy(s => s.Group.Name);
                     break;
-                case "group_desc":
+                case "name_desc":
                     registrations = registrations.OrderByDescending(s => s.Group.Name);
                     break;
                 default:
@@ -123,7 +123,7 @@ namespace ProyectoFinal.Controllers
             {
                 return HttpNotFound();
             }
-           
+
             return View(registration);
         }
         public ActionResult Create()
@@ -138,11 +138,23 @@ namespace ProyectoFinal.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Registration registration)
+        public ActionResult Create([Bind(Include = "RegistrationID,CreationDate,Status,ClientID,GroupID")] Registration registration)
         {
+            int groupID = Convert.ToInt32(Request.Params["GroupID"]);
+            int clientID = Convert.ToInt32(Request.Params["ClientID"]);
+            var regi = groupRepository;
+            if (regi.AlumnoGrupo(groupID, clientID))
+            {
+                ModelState.AddModelError("GroupID", "El socio ya esta registrado en esa clase");
+                ViewBag.ClientID = new SelectList(clientRepository.GetClients(), "ClientID", "FirstName");
+                ViewBag.GroupID = new SelectList(groupRepository.GetGroups(), "GroupID", "Name");
+                return View();
+            }
             if (ModelState.IsValid)
             {
                 registrationRepository.InsertRegistration(registration);
+                groupRepository.AgregarAlumno(groupID);
+                groupRepository.Save();
                 registrationRepository.Save();
                 return RedirectToAction("Index");
             }

@@ -23,7 +23,9 @@ namespace ProyectoFinal.Models.Repositories
         #region Interface implementation
         public IEnumerable<Registration> GetRegistrations()
         {
-            return context.Registrations.ToList();
+            return context.Registrations.Include(r => r.Client)
+                                        .Include(r => r.Group)
+                                        .ToList();
         }
 
         public Registration GetRegistrationByID(int id)
@@ -58,6 +60,17 @@ namespace ProyectoFinal.Models.Repositories
             GC.SuppressFinalize(this);
         }
         #endregion
+        public void EliminarInscripto(int groupID)
+        {
+            List<Group> groups = context.Groups.ToList();
+            var a = context.Groups.Where(r => r.GroupID == groupID).FirstOrDefault();
+            if (a != null)
+            {
+                a.Amount = a.Amount - 1;
+            }
+
+
+        }
 
         protected virtual void Dispose(bool disposing)
         {
