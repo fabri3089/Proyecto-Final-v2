@@ -14,6 +14,7 @@ namespace ProyectoFinal.Models.Repositories
         void DeleteRegistration(int registrationID);
         void UpdateRegistration(Registration registration);
         void EliminarInscripto(int groupID);
+        bool HorarioClase(int clientID, int groupID);
         void Save();
     }
 }

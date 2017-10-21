@@ -21,13 +21,17 @@
                     @Html.DisplayNameFor(model => model.Level)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Quota)
+                    @Html.DisplayNameFor(model => model.Day)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Amount)
+                    @Html.DisplayNameFor(model => model.HourFrom)
                 </th>
-                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HourTo)
+                </th>
+                <th class="actions">Acciones</th>
             </tr>
+     
 
             @foreach (var item in Model)
             {
@@ -42,10 +46,13 @@
                         @Html.DisplayFor(modelItem => item.Level)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Quota)
+                        @Html.DisplayFor(modelItem => item.Day)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Amount)
+                        @Html.DisplayFor(modelItem => item.HourFrom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HourTo)
                     </td>
                     <td>
                         @Html.ActionLink("Inscribirse", "Create", new { id = item.GroupID })
@@ -92,10 +99,7 @@
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
-                    @*@Html.ActionLink("Edit", "Edit", new { id = item.RegistrationID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.RegistrationID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.RegistrationID })*@
-                    @Html.ActionLink("Eliminar inscripción", "Delete", new { id = item.RegistrationID })
+                  @Html.ActionLink("Eliminar inscripción", "Delete", new { id = item.RegistrationID })
                 </td>
             </tr>
         }

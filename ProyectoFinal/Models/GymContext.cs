@@ -369,17 +369,17 @@ namespace ProyectoFinal.Models
             #endregion
 
              #region Registrations
-             var registrations = new List<Registration>
+            /* var registrations = new List<Registration>
              {
                  new Models.Registration {CreationDate=  new DateTime(2017,12,12), Status=Catalog.Status.Active, ClientID=1, GroupID=1 },
                  new Models.Registration {CreationDate=  new DateTime(2017,12,12), Status=Catalog.Status.Active, ClientID=1, GroupID=2 }
              };
              registrations.ForEach(a => context.Registrations.Add(a));
-             context.SaveChanges();
+             context.SaveChanges();*/
             #endregion
 
             #region updateAmount
-            var inscripciones = context.Registrations.ToList();
+        /*    var inscripciones = context.Registrations.ToList();
             foreach (var item in inscripciones)
             {
                 var clase = context.Groups.Where(g => g.GroupID == item.GroupID).FirstOrDefault();
@@ -388,7 +388,7 @@ namespace ProyectoFinal.Models
                     clase.Amount += 1;
                 }
             }
-            context.SaveChanges();
+            context.SaveChanges();*/
             #endregion
         }
 

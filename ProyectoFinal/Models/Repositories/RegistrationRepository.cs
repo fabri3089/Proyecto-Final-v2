@@ -71,7 +71,29 @@ namespace ProyectoFinal.Models.Repositories
 
 
         }
+        public bool HorarioClase(int clientID, int groupID)
+        {
+            
+            List<Group> groupClient = new List<Group>();
+            List<Group> groups = context.Groups.ToList();
+            foreach(var group in groups)
+            {
+                int id = group.GroupID;
+                var registration = context.Registrations.Where(r => r.ClientID == clientID && r.GroupID == id).FirstOrDefault();
+                if (registration != null) groupClient.Add(group);
+                registration = null;
+            }
 
+            var gr = context.Groups.Where(g => g.GroupID == groupID).FirstOrDefault();
+            var a = groupClient.Where(k => k.Day == gr.Day && gr.HourFrom >= k.HourFrom && gr.HourFrom < k.HourTo).FirstOrDefault();
+            if (a == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+       
         protected virtual void Dispose(bool disposing)
         {
             if (!this.disposed)

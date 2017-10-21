@@ -21,6 +21,7 @@ namespace ProyectoFinal.Controllers
         #region Properties
         private IClientRepository clientRepository;
         private IGroupRepository groupRepository;
+        private IRegistrationRepository registrationRepository;
         #endregion
 
         #region Constructors
@@ -28,12 +29,14 @@ namespace ProyectoFinal.Controllers
         {
             this.clientRepository = new ClientRepository(new GymContext());
             this.groupRepository = new GroupRepository(new GymContext());
+            this.registrationRepository = new RegistrationRepository(new GymContext());
         }
 
-        public RegistrationClientsController(IClientRepository clientRepository, IGroupRepository groupRepository)
+        public RegistrationClientsController(IClientRepository clientRepository, IGroupRepository groupRepository, IRegistrationRepository registrationRepository)
         {
             this.clientRepository = clientRepository;
             this.groupRepository = groupRepository;
+            this.registrationRepository = registrationRepository;
         }
         #endregion
 
@@ -99,8 +102,8 @@ namespace ProyectoFinal.Controllers
 
             ViewBag.Client = this.GetLoggedUser();
             var group = groupRepository.GetGroupByID(id);
+            int groupID = group.GroupID;
             ViewBag.Group = group;
-
             return View();
         }
 
@@ -112,13 +115,19 @@ namespace ProyectoFinal.Controllers
         public ActionResult Create(Registration registration)
         {
             registration.CreationDate = DateTime.Now;
-            //registration.Status = 1;
-          //  int groupID = Convert.ToInt32(Request.Params["GroupID"]);
             registration.GroupID = Convert.ToInt32(Request.Params["GroupID"]);
             int groupID = registration.GroupID;
-            //registration.GroupID = (ViewBag.Group as Group).GroupID;
             registration.ClientID = this.GetLoggedUser().ClientID;
+            int clientID = registration.ClientID;
             registration.Status = Catalog.Status.Active;
+            if(registrationRepository.HorarioClase(clientID, groupID))
+            {
+                ModelState.AddModelError("GroupID", "Horario de clase superpuesto con otra clase");
+                ViewBag.Client = this.GetLoggedUser();
+                var group = groupRepository.GetGroupByID(groupID);
+                ViewBag.Group = group;
+                return View();
+            }
             if (ModelState.IsValid)
             {
                 groupRepository.AgregarAlumno(groupID);
@@ -180,6 +189,7 @@ namespace ProyectoFinal.Controllers
             {
                 return HttpNotFound();
             }
+            
             return View(registration);
         }
 
