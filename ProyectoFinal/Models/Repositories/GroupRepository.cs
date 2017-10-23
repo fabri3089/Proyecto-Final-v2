@@ -86,7 +86,7 @@ namespace ProyectoFinal.Models.Repositories
             }
             return true;
         }
-        public void AgregarAlumno(int groupID)
+        public void AgregarInscripto(int groupID)
         {
             List<Group> groups = context.Groups.ToList();
             var a = context.Groups.Where(r => r.GroupID == groupID).FirstOrDefault();
@@ -105,8 +105,35 @@ namespace ProyectoFinal.Models.Repositories
             {
                 a.Amount = a.Amount - 1;
             }
+        }
+            public void IncrementarCupo (int groupID)
+        {
+            List<Group> groups = context.Groups.ToList();
+            var a = context.Groups.Where(r => r.GroupID == groupID).FirstOrDefault();
+            if (a != null)
+            {
+                a.Quota = a.Quota + 1;
+            }
+        }
+        public void DecrementarCupo(int groupID)
+        {
+            List<Group> groups = context.Groups.ToList();
+            var a = context.Groups.Where(r => r.GroupID == groupID).FirstOrDefault();
+            if (a != null)
+            {
+                a.Quota = a.Quota - 1;
+            }
+        }
 
-
+        public bool ValidarCupo(int groupID)
+        {
+            List<Group> groups = context.Groups.ToList();
+            var a = context.Groups.Where(r => r.GroupID == groupID).FirstOrDefault();
+            if (a != null && a.Quota==0)
+            {
+                return false;
+            }
+            return true;
         }
         protected virtual void Dispose(bool disposing)
         {

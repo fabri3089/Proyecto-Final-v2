@@ -128,9 +128,34 @@ namespace ProyectoFinal.Controllers
                 ViewBag.Group = group;
                 return View();
             }
+            if (registrationRepository.ValidarCupo(groupID))
+            {
+                ModelState.AddModelError("GroupID", "Esta clase no tiene más cupo");
+                ViewBag.Client = this.GetLoggedUser();
+                var group = groupRepository.GetGroupByID(groupID);
+                ViewBag.Group = group;
+                return View();
+            }
+            if (registrationRepository.ValidarNivel(groupID))
+            {
+                ModelState.AddModelError("GroupID", "No tienes permiso para inscribirte a clases de niveles medios y avanzados, contacta con un profesor");
+                ViewBag.Client = this.GetLoggedUser();
+                var group = groupRepository.GetGroupByID(groupID);
+                ViewBag.Group = group;
+                return View();
+            }
+             if (registrationRepository.ValidarAbonoActivo(clientID, groupID))
+            {
+                ModelState.AddModelError("GroupID", "El cliente no tiene un abono activo");
+                ViewBag.Client = this.GetLoggedUser();
+                var group = groupRepository.GetGroupByID(groupID);
+                ViewBag.Group = group;
+                return View();
+            }
             if (ModelState.IsValid)
             {
-                groupRepository.AgregarAlumno(groupID);
+                groupRepository.AgregarInscripto(groupID);
+                groupRepository.DecrementarCupo(groupID);
                 groupRepository.Save();
                 db.Registrations.Add(registration);
                 db.SaveChanges();
@@ -184,7 +209,8 @@ namespace ProyectoFinal.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Registration registration = db.Registrations.Find(id);
+            var registration=registrationRepository.FindRegistration(id);
+           // Registration registration = db.Registrations.Find(id);
             if (registration == null)
             {
                 return HttpNotFound();
@@ -203,6 +229,7 @@ namespace ProyectoFinal.Controllers
             var groupID = registration.GroupID;
             db.Registrations.Remove(registration);
             groupRepository.EliminarInscripto(groupID);
+            groupRepository.IncrementarCupo(groupID);
             groupRepository.Save();
             db.SaveChanges();
             return RedirectToAction("Index");

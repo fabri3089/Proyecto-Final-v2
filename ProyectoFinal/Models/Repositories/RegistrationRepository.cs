@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoFinal.Utils;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace ProyectoFinal.Models.Repositories
     {
         #region Properties
         public GymContext context;
+        private IGroupRepository groupRepository;
         private bool disposed = false;
         #endregion
 
@@ -17,6 +19,7 @@ namespace ProyectoFinal.Models.Repositories
         public RegistrationRepository(GymContext context)
         {
             this.context = context;
+            this.groupRepository = new GroupRepository(new GymContext());
         }
         #endregion
 
@@ -30,7 +33,17 @@ namespace ProyectoFinal.Models.Repositories
 
         public Registration GetRegistrationByID(int id)
         {
-            return context.Registrations.Find(id);
+            //return context.Registrations.Find(id);
+            return context.Registrations.Include(r => r.Client)
+                                        .Include(r=>r.Group)
+                                        .Where(p => p.RegistrationID == id).FirstOrDefault();
+        }
+        public Registration FindRegistration(int? id)
+        {
+            //return context.Registrations.Find(id);
+            return context.Registrations.Include(r => r.Client)
+                                        .Include(r => r.Group)
+                                        .Where(p => p.RegistrationID == id).FirstOrDefault();
         }
 
         public void InsertRegistration(Registration registration)
@@ -60,17 +73,7 @@ namespace ProyectoFinal.Models.Repositories
             GC.SuppressFinalize(this);
         }
         #endregion
-        public void EliminarInscripto(int groupID)
-        {
-            List<Group> groups = context.Groups.ToList();
-            var a = context.Groups.Where(r => r.GroupID == groupID).FirstOrDefault();
-            if (a != null)
-            {
-                a.Amount = a.Amount - 1;
-            }
-
-
-        }
+        
         public bool HorarioClase(int clientID, int groupID)
         {
             
@@ -93,7 +96,62 @@ namespace ProyectoFinal.Models.Repositories
             return true;
         }
 
-       
+        public bool ValidarCupo(int groupID)
+        {
+            List<Group> groups = context.Groups.ToList();
+            var a = context.Groups.Where(r => r.GroupID == groupID).FirstOrDefault();
+            if (a != null && a.Quota != 0)
+            {
+                return false;
+            }
+            return true;
+        }
+        public bool ValidarNivel(int groupID)
+        {
+            List<Group> groups = context.Groups.ToList();
+            var a = context.Groups.Where(r => r.GroupID == groupID).FirstOrDefault();
+            if (a != null && a.Level==Catalog.LevelGroup.Begginer)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        
+      /*  public bool ValidarAbonoActivo(int clientID, int activityID)
+        {
+
+            var paymentsTypesActivity = context.PaymentTypes.Where(r => r.ActivityID == activityID).ToList();
+
+            foreach (var pay in paymentsTypesActivity)
+            {
+                int id = pay.PaymentTypeID;
+                var payments = context.Payments.Where(r => r.ClientID == clientID && r.PaymentTypeID==id).FirstOrDefault();
+                if (payments != null && payments.Status == Catalog.Status.Active)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }*/
+        public bool ValidarAbonoActivo(int clientID, int groupID)
+        {
+            var activity = groupRepository.GetGroupByID(groupID);
+            int activityID = activity.ActivityID;
+            var paymentsTypesActivity = context.PaymentTypes.Where(r => r.ActivityID == activityID).ToList();
+
+            foreach (var pay in paymentsTypesActivity)
+            {
+                int id = pay.PaymentTypeID;
+                var payments = context.Payments.Where(r => r.ClientID == clientID && r.PaymentTypeID == id).FirstOrDefault();
+                if (payments != null && payments.Status == Catalog.Status.Active)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!this.disposed)

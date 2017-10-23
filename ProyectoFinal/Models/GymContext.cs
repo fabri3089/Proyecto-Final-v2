@@ -245,8 +245,8 @@ namespace ProyectoFinal.Models
             #region Payment
             var payments = new List<Payment>
             {
-                new Payment { ClientID = 1, PaymentTypeID = 1, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2016,12,12), CreationDate = DateTime.Now },
-                new Payment { ClientID = 2, PaymentTypeID = 2, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2016,12,12), CreationDate = DateTime.Now },
+                new Payment { ClientID = 1, PaymentTypeID = 1, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2017,12,12), CreationDate = DateTime.Now },
+                new Payment { ClientID = 2, PaymentTypeID = 2, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2017,12,12), CreationDate = DateTime.Now },
 
                 new Payment { ClientID = 4, PaymentTypeID = 1, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2016,12,12), CreationDate = DateTime.Now },
                 new Payment { ClientID = 4, PaymentTypeID = 2, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2016,12,12), CreationDate = DateTime.Now },
@@ -369,27 +369,40 @@ namespace ProyectoFinal.Models
             #endregion
 
              #region Registrations
-            /* var registrations = new List<Registration>
+             var registrations = new List<Registration>
              {
                  new Models.Registration {CreationDate=  new DateTime(2017,12,12), Status=Catalog.Status.Active, ClientID=1, GroupID=1 },
                  new Models.Registration {CreationDate=  new DateTime(2017,12,12), Status=Catalog.Status.Active, ClientID=1, GroupID=2 }
              };
              registrations.ForEach(a => context.Registrations.Add(a));
-             context.SaveChanges();*/
+             context.SaveChanges();
             #endregion
 
-            #region updateAmount
-        /*    var inscripciones = context.Registrations.ToList();
+            #region updateAmountAndQuota
+           var inscripciones = context.Registrations.ToList();
             foreach (var item in inscripciones)
             {
                 var clase = context.Groups.Where(g => g.GroupID == item.GroupID).FirstOrDefault();
                 if(clase!=null)
                 {
                     clase.Amount += 1;
+                    clase.Quota -= 1;
                 }
             }
-            context.SaveChanges();*/
+            context.SaveChanges();
             #endregion
+            #region updatePaymentStatus
+            var payment = context.Payments.ToList();
+            foreach (var item in payment)
+            {
+               if(item.ExpirationDate<= DateTime.Now)
+                {
+                    item.Status = Catalog.Status.Inactive;
+                }
+            }
+            context.SaveChanges();
+            #endregion
+
         }
 
     }

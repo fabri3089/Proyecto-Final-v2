@@ -123,7 +123,7 @@ namespace ProyectoFinal.Controllers
             {
                 return HttpNotFound();
             }
-
+           
             return View(registration);
         }
         public ActionResult Create()
@@ -142,6 +142,8 @@ namespace ProyectoFinal.Controllers
         {
             int groupID = Convert.ToInt32(Request.Params["GroupID"]);
             int clientID = Convert.ToInt32(Request.Params["ClientID"]);
+           // var actividad = groupRepository.GetGroupByID(groupID);
+           // int activityId = actividad.ActivityID;
             var regi = groupRepository;
             if (regi.AlumnoGrupo(groupID, clientID))
             {
@@ -150,10 +152,32 @@ namespace ProyectoFinal.Controllers
                 ViewBag.GroupID = new SelectList(groupRepository.GetGroups(), "GroupID", "Name");
                 return View();
             }
+            if (registrationRepository.HorarioClase(clientID, groupID))
+            {
+                ModelState.AddModelError("GroupID", "Horario de clase superpuesto con otra clase");
+                ViewBag.ClientID = new SelectList(clientRepository.GetClients(), "ClientID", "FirstName");
+                ViewBag.GroupID = new SelectList(groupRepository.GetGroups(), "GroupID", "Name");
+                return View();
+            }
+            if (registrationRepository.ValidarCupo(groupID))
+            {
+                ModelState.AddModelError("GroupID", "Esta clase no tiene más cupo");
+                ViewBag.ClientID = new SelectList(clientRepository.GetClients(), "ClientID", "FirstName");
+                ViewBag.GroupID = new SelectList(groupRepository.GetGroups(), "GroupID", "Name");
+                return View();
+            }
+            if (registrationRepository.ValidarAbonoActivo(clientID, groupID))
+            {
+                ModelState.AddModelError("GroupID", "El cliente no tiene un abono activo");
+                ViewBag.ClientID = new SelectList(clientRepository.GetClients(), "ClientID", "FirstName");
+                ViewBag.GroupID = new SelectList(groupRepository.GetGroups(), "GroupID", "Name");
+                return View();
+            }
             if (ModelState.IsValid)
             {
                 registrationRepository.InsertRegistration(registration);
-                groupRepository.AgregarAlumno(groupID);
+                groupRepository.AgregarInscripto(groupID);
+                groupRepository.DecrementarCupo(groupID);
                 groupRepository.Save();
                 registrationRepository.Save();
                 return RedirectToAction("Index");
@@ -175,13 +199,13 @@ namespace ProyectoFinal.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ClientID = new SelectList(clientRepository.GetClients(), "ClientID", "FirstName");
-            ViewBag.GroupID = new SelectList(groupRepository.GetGroups(), "GroupID", "Name");
+            ViewBag.ClientID = new SelectList(clientRepository.GetClients(), "ClientID", "FirstName", registration.ClientID);
+            ViewBag.GroupID = new SelectList(groupRepository.GetGroups(), "GroupID", "Name", registration.GroupID);
             return View(registration);
         }
 
 
-        // POST: Stocks/Edit/5
+        // POST: Registrations/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -194,8 +218,8 @@ namespace ProyectoFinal.Controllers
                 registrationRepository.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.ClientID = new SelectList(clientRepository.GetClients(), "ClientID", "FirstName");
-            ViewBag.GroupID = new SelectList(groupRepository.GetGroups(), "GroupID", "Name");
+            ViewBag.ClientID = new SelectList(clientRepository.GetClients(), "ClientID", "FirstName", registration.ClientID);
+            ViewBag.GroupID = new SelectList(groupRepository.GetGroups(), "GroupID", "Name", registration.GroupID);
             return View(registration);
         }
 
@@ -221,8 +245,12 @@ namespace ProyectoFinal.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Registration registration = registrationRepository.GetRegistrationByID((int)id);
+            var groupID = registration.GroupID;
+            groupRepository.EliminarInscripto(groupID);
+            groupRepository.IncrementarCupo(groupID);
             registrationRepository.DeleteRegistration((int)id);
             registrationRepository.Save();
+            groupRepository.Save();
             return RedirectToAction("Index");
         }
 

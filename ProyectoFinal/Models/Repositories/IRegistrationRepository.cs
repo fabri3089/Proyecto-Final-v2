@@ -10,10 +10,13 @@ namespace ProyectoFinal.Models.Repositories
     {
         IEnumerable<Registration> GetRegistrations();
         Registration GetRegistrationByID(int registrationID);
+        Registration FindRegistration(int? id);
         void InsertRegistration(Registration registration);
         void DeleteRegistration(int registrationID);
         void UpdateRegistration(Registration registration);
-        void EliminarInscripto(int groupID);
+        bool ValidarCupo(int groupID);
+        bool ValidarNivel(int groupID);
+        bool ValidarAbonoActivo(int clientID, int activityID);
         bool HorarioClase(int clientID, int groupID);
         void Save();
     }
