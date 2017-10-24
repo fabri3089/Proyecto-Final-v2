@@ -49,10 +49,10 @@
                         @Html.DisplayFor(modelItem => item.Day)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HourFrom)
+                        @Html.DisplayFor(modelItem => item.HourFrom):00
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HourTo)
+                        @Html.DisplayFor(modelItem => item.HourTo):00
                     </td>
                     <td>
                         @Html.ActionLink("Inscribirse", "Create", new { id = item.GroupID })
@@ -75,7 +75,7 @@
                 Grupo
             </th>
             <th>
-                Fecha de alta
+                Fecha y hora alta
             </th>
             <th>
                 Estado

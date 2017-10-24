@@ -145,6 +145,13 @@ namespace ProyectoFinal.Controllers
            // var actividad = groupRepository.GetGroupByID(groupID);
            // int activityId = actividad.ActivityID;
             var regi = groupRepository;
+            if (registrationRepository.ValidarAbonoActivo(clientID, groupID))
+            {
+                ModelState.AddModelError("GroupID", "El cliente no tiene un abono activo");
+                ViewBag.ClientID = new SelectList(clientRepository.GetClients(), "ClientID", "FirstName");
+                ViewBag.GroupID = new SelectList(groupRepository.GetGroups(), "GroupID", "Name");
+                return View();
+            }
             if (regi.AlumnoGrupo(groupID, clientID))
             {
                 ModelState.AddModelError("GroupID", "El socio ya esta registrado en esa clase");
@@ -166,15 +173,10 @@ namespace ProyectoFinal.Controllers
                 ViewBag.GroupID = new SelectList(groupRepository.GetGroups(), "GroupID", "Name");
                 return View();
             }
-            if (registrationRepository.ValidarAbonoActivo(clientID, groupID))
-            {
-                ModelState.AddModelError("GroupID", "El cliente no tiene un abono activo");
-                ViewBag.ClientID = new SelectList(clientRepository.GetClients(), "ClientID", "FirstName");
-                ViewBag.GroupID = new SelectList(groupRepository.GetGroups(), "GroupID", "Name");
-                return View();
-            }
+           
             if (ModelState.IsValid)
             {
+                registration.CreationDate = DateTime.Now;
                 registrationRepository.InsertRegistration(registration);
                 groupRepository.AgregarInscripto(groupID);
                 groupRepository.DecrementarCupo(groupID);

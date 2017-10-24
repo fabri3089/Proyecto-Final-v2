@@ -235,7 +235,9 @@ namespace ProyectoFinal.Models
                 new PaymentType { Description = "Gimnasio mensual", Status = Catalog.Status.Active, ActivityID = 1, DurationInMonths = 1 },
                 new PaymentType { Description = "Gimnasio anual", Status = Catalog.Status.Active, ActivityID = 1, DurationInMonths = 12 },
                 new PaymentType { Description = "Pilates mensual", Status = Catalog.Status.Active, ActivityID = 2, DurationInMonths = 1 },
+                 new PaymentType { Description = "Pilates anual", Status = Catalog.Status.Active, ActivityID = 2, DurationInMonths = 12 },
                 new PaymentType { Description = "Boxeo mensual", Status = Catalog.Status.Active, ActivityID = 3, DurationInMonths = 1 },
+                new PaymentType { Description = "Boxeo anual", Status = Catalog.Status.Active, ActivityID = 3, DurationInMonths = 12 },
             };
 
             paymentType.ForEach(p => context.PaymentTypes.Add(p));
@@ -361,9 +363,10 @@ namespace ProyectoFinal.Models
             #region Groups
             var groups = new List<Group>
             {
-                new Models.Group {Name="CrossFit", Description="Entrenamiento funcional con pesas", Level=Catalog.LevelGroup.Begginer, Quota=20, Amount=0, Day="Lunes", HourFrom=13, HourTo=14, ActivityID=1 },
-                new Models.Group {Name="CrossFit", Description="Entrenamiento funcional con pesas", Level=Catalog.LevelGroup.Medium, Quota=20, Amount=0, Day="Lunes", HourFrom=14, HourTo=15, ActivityID=1 },
-                new Models.Group {Name="Pilates", Description="Entrenamiento de enlongación", Level=Catalog.LevelGroup.Begginer, Quota=20, Amount=0, Day="Lunes", HourFrom=13, HourTo=14, ActivityID=2 }
+                new Models.Group {Name="CrossFit", Description="Entrenamiento con movimientos funcionales, ejecutados a alta intensidad.", Level=Catalog.LevelGroup.Begginer, Quota=20, Amount=0, Day="Lunes", HourFrom=13, HourTo=14, ActivityID=1 },
+                new Models.Group {Name="CrossFit 2", Description="Entrenamiento con movimientos funcionales, ejecutados a alta intensidad.", Level=Catalog.LevelGroup.Medium, Quota=20, Amount=0, Day="Lunes", HourFrom=14, HourTo=15, ActivityID=1 },
+                new Models.Group {Name="Pilates", Description="Sistema de entrenamiento físico y mental", Level=Catalog.LevelGroup.Begginer, Quota=20, Amount=0, Day="Lunes", HourFrom=13, HourTo=14, ActivityID=2 },
+                new Models.Group {Name="Boxeo", Description="Deporte de combate", Level=Catalog.LevelGroup.Begginer, Quota=0, Amount=10, Day="Martes", HourFrom=13, HourTo=14, ActivityID=3 }
             }; groups.ForEach(a => context.Groups.Add(a));
             context.SaveChanges();
             #endregion
@@ -372,7 +375,7 @@ namespace ProyectoFinal.Models
              var registrations = new List<Registration>
              {
                  new Models.Registration {CreationDate=  new DateTime(2017,12,12), Status=Catalog.Status.Active, ClientID=1, GroupID=1 },
-                 new Models.Registration {CreationDate=  new DateTime(2017,12,12), Status=Catalog.Status.Active, ClientID=1, GroupID=2 }
+                 //new Models.Registration {CreationDate=  new DateTime(2017,12,12), Status=Catalog.Status.Active, ClientID=1, GroupID=2 }
              };
              registrations.ForEach(a => context.Registrations.Add(a));
              context.SaveChanges();

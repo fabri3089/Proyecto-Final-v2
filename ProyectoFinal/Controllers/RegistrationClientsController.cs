@@ -120,17 +120,9 @@ namespace ProyectoFinal.Controllers
             registration.ClientID = this.GetLoggedUser().ClientID;
             int clientID = registration.ClientID;
             registration.Status = Catalog.Status.Active;
-            if(registrationRepository.HorarioClase(clientID, groupID))
+            if (registrationRepository.ValidarAbonoActivo(clientID, groupID))
             {
-                ModelState.AddModelError("GroupID", "Horario de clase superpuesto con otra clase");
-                ViewBag.Client = this.GetLoggedUser();
-                var group = groupRepository.GetGroupByID(groupID);
-                ViewBag.Group = group;
-                return View();
-            }
-            if (registrationRepository.ValidarCupo(groupID))
-            {
-                ModelState.AddModelError("GroupID", "Esta clase no tiene más cupo");
+                ModelState.AddModelError("GroupID", "El cliente no tiene un abono activo");
                 ViewBag.Client = this.GetLoggedUser();
                 var group = groupRepository.GetGroupByID(groupID);
                 ViewBag.Group = group;
@@ -144,9 +136,18 @@ namespace ProyectoFinal.Controllers
                 ViewBag.Group = group;
                 return View();
             }
-             if (registrationRepository.ValidarAbonoActivo(clientID, groupID))
+            if (registrationRepository.ValidarCupo(groupID))
             {
-                ModelState.AddModelError("GroupID", "El cliente no tiene un abono activo");
+                ModelState.AddModelError("GroupID", "Esta clase no tiene más cupo");
+                ViewBag.Client = this.GetLoggedUser();
+                var group = groupRepository.GetGroupByID(groupID);
+                ViewBag.Group = group;
+                return View();
+            }
+            
+            if (registrationRepository.HorarioClase(clientID, groupID))
+            {
+                ModelState.AddModelError("GroupID", "Horario de clase superpuesto con otra clase");
                 ViewBag.Client = this.GetLoggedUser();
                 var group = groupRepository.GetGroupByID(groupID);
                 ViewBag.Group = group;

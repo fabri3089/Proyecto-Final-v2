@@ -10,10 +10,12 @@ using ProyectoFinal.Models;
 using ProyectoFinal.Models.Repositories;
 using System.Configuration;
 using PagedList;
+using ProyectoFinal.Filters;
 
 namespace ProyectoFinal.Controllers
 {
     [HandleError()]
+    [AuthorizationPrivilege(Role = "Admin")]
     public class GroupsController : Controller
     {
         #region Properties

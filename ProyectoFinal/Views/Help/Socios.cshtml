@@ -110,16 +110,37 @@
     <div class="row">
         <div class="col-md-7">
             <a href="#">
-                <img class="img-responsive" src="~/Images/help/index04.jpg" alt="">
+                <img class="img-responsive" src="~/Images/help/index09.jpg" alt="">
             </a>
+            </div>
+            <div class="col-md-5">
+                <h3>Inscripción a clases</h3>
+                <h4>Disfruta de nuestras mejores clases grupalles</h4>
+                <p>
+                    Esta página te permite realizar inscripciones a las diferentes clases que el gimnasio propone. En el menú a la derecha podrás elegir la clase que quieras realizar. 
+                    Ten en cuenta que para poder realizar la inscripción deberás contar con un abono, la clase deberá ser de nivel Begginer, debe tener cupo y no podrá superponerse con otra
+                    clase en el mismo horario. Abajo de las clases disponibles, podrás ver tus inscripciones a las distintas clases, como así también desinscribirte de la que desees.
+                    Accedes a esta pantalla desde el menú haciendo click en Catálogos y luego Inscripción a clases.
+                </p>
+                @Html.ActionLink("Inscribirme", "Index", "RegistrationClients", null, new { @class = "btn btn-primary btn-md", target = "_blank" })
+            </div>
         </div>
-        <div class="col-md-5">
-            <h3>Contacto</h3>
-            <h4>Información de contacto</h4>
-            <p>En esta página encontrarás información general como ubicación, horarios, mapa para saber como llegar, dirección, teléfono, entre otros.</p>
-            @Html.ActionLink("Ir a la página", "Contact", "Home", null, new { @class = "btn btn-primary btn-md", target = "_blank" })
+        <!-- /.row -->
+        <hr class="style-seven">
+        <!-- Project Five -->
+        <div class="row">
+            <div class="col-md-7">
+                <a href="#">
+                    <img class="img-responsive" src="~/Images/help/index04.jpg" alt="">
+                </a>
+            </div>
+            <div class="col-md-5">
+                <h3>Contacto</h3>
+                <h4>Información de contacto</h4>
+                <p>En esta página encontrarás información general como ubicación, horarios, mapa para saber como llegar, dirección, teléfono, entre otros.</p>
+                @Html.ActionLink("Ir a la página", "Contact", "Home", null, new { @class = "btn btn-primary btn-md", target = "_blank" })
+            </div>
         </div>
-    </div>
     <!-- /.row -->
     <hr class="style-seven">
 </div>
