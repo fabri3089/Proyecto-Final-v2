@@ -11,7 +11,7 @@ namespace ProyectoFinal.Models
     public class Registration
     {
         public int RegistrationID { get; set; }
-        [DisplayName("Fecha de alta")]
+        [DisplayName("Fecha y hora alta")]
         public DateTime CreationDate { get; set; }
         [DisplayName("Estado")]
         public Catalog.Status Status { get; set; }

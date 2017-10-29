@@ -363,8 +363,8 @@ namespace ProyectoFinal.Models
             #region Groups
             var groups = new List<Group>
             {
-                new Models.Group {Name="CrossFit", Description="Entrenamiento con movimientos funcionales, ejecutados a alta intensidad.", Level=Catalog.LevelGroup.Begginer, Quota=20, Amount=0, Day="Lunes", HourFrom=13, HourTo=14, ActivityID=1 },
-                new Models.Group {Name="CrossFit 2", Description="Entrenamiento con movimientos funcionales, ejecutados a alta intensidad.", Level=Catalog.LevelGroup.Medium, Quota=20, Amount=0, Day="Lunes", HourFrom=14, HourTo=15, ActivityID=1 },
+                new Models.Group {Name="CrossFit", Description="Entrenamiento funcional de alta intensidad.", Level=Catalog.LevelGroup.Begginer, Quota=20, Amount=0, Day="Lunes", HourFrom=13, HourTo=14, ActivityID=1 },
+                new Models.Group {Name="CrossFit 2", Description="Entrenamiento funcional de alta intensidad.", Level=Catalog.LevelGroup.Medium, Quota=20, Amount=0, Day="Lunes", HourFrom=14, HourTo=15, ActivityID=1 },
                 new Models.Group {Name="Pilates", Description="Sistema de entrenamiento físico y mental", Level=Catalog.LevelGroup.Begginer, Quota=20, Amount=0, Day="Lunes", HourFrom=13, HourTo=14, ActivityID=2 },
                 new Models.Group {Name="Boxeo", Description="Deporte de combate", Level=Catalog.LevelGroup.Begginer, Quota=0, Amount=10, Day="Martes", HourFrom=13, HourTo=14, ActivityID=3 }
             }; groups.ForEach(a => context.Groups.Add(a));
