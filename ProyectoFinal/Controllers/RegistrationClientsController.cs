@@ -122,7 +122,7 @@ namespace ProyectoFinal.Controllers
             registration.Status = Catalog.Status.Active;
             if (registrationRepository.ValidarAbonoActivo(clientID, groupID))
             {
-                ModelState.AddModelError("GroupID", "El cliente no tiene un abono activo");
+                ModelState.AddModelError("GroupID", "El socio no tiene un abono activo");
                 ViewBag.Client = this.GetLoggedUser();
                 var group = groupRepository.GetGroupByID(groupID);
                 ViewBag.Group = group;

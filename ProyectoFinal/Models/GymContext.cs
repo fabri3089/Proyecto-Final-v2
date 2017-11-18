@@ -93,17 +93,13 @@ namespace ProyectoFinal.Models
                 DateFrom = new DateTime(2008, 09, 01), Email = "john.doe@hotmail.com",
                 Password = password1, PasswordSalt = passwordSalt1, Role = Catalog.Roles.Client, Sexo = Catalog.Genre.Hombre },
 
-                new Client { FirstName = "Cristian", LastName = "Piqué", DocType = "DNI", DocNumber = 34578644, BirthDate = new DateTime(1989, 12, 31),
-                DateFrom = new DateTime(2008, 09, 01), Email = "cristian.pique@hotmail.com",
-                Password = password2, PasswordSalt = passwordSalt2, Role = Catalog.Roles.Admin, Sexo = Catalog.Genre.Hombre },
+                new Client { FirstName = "Ray", LastName = "Allen", DocType = "DNI", DocNumber = 34578644, BirthDate = new DateTime(1992, 12, 31),
+                DateFrom = new DateTime(2014, 09, 01), Email = "ray.allan@hotmail.com",
+                Password = password4, PasswordSalt = passwordSalt4, Role = Catalog.Roles.Client, Sexo = Catalog.Genre.Hombre },
 
                 new Client { FirstName = "José", LastName = "Pérez", DocType = "DNI", DocNumber = 34578644, BirthDate = new DateTime(1982, 12, 31),
                 DateFrom = new DateTime(2014, 09, 01), Email = "jose.perez@hotmail.com",
                 Password = password3, PasswordSalt = passwordSalt3, Role = Catalog.Roles.Instructor, Sexo = Catalog.Genre.Hombre },
-
-                new Client { FirstName = "Ray", LastName = "Allen", DocType = "DNI", DocNumber = 34578644, BirthDate = new DateTime(1992, 12, 31),
-                DateFrom = new DateTime(2014, 09, 01), Email = "ray.allan@hotmail.com",
-                Password = password4, PasswordSalt = passwordSalt4, Role = Catalog.Roles.Client, Sexo = Catalog.Genre.Hombre },
 
                 new Client { FirstName = "Enzo", LastName = "Gutiérrez", DocType = "DNI", DocNumber = 34578644, BirthDate = new DateTime(1991, 12, 31),
                 DateFrom = new DateTime(2014, 09, 01), Email = "enzog@gmail.com",
@@ -153,13 +149,13 @@ namespace ProyectoFinal.Models
             #region Routines
             var routines = new List<Routine>
             {
-                new Routine { ClientID = 1, NameFile="CristianPique v1.0", Description = "Rutina personalizada", Files = new List<File>(), CreationDate = DateTime.Now, DaysInWeek=5,
+                new Routine { ClientID = 1, NameFile="Hipertrofia", Description = "Rutina personalizada", Files = new List<File>(), CreationDate = DateTime.Now, DaysInWeek=5,
                               Level =Catalog.LevelRoutine.Medium, Status= Catalog.Status.Active },
-                new Routine { ClientID = 1, NameFile="RutinaBegginers", Description = "Rutina nivel princiante", Files = new List<File>(), CreationDate = DateTime.Now, DaysInWeek=3,
-                              Level=Catalog.LevelRoutine.Begginer, Status= Catalog.Status.Active},
-                new Routine { ClientID = 1, NameFile="Cardio rutina", Description = "Rutina intensiva cardio", Files = new List<File>(), CreationDate = DateTime.Now, DaysInWeek=4,
-                              Level=Catalog.LevelRoutine.Medium, Status= Catalog.Status.Active},
+                new Routine { ClientID = 1, NameFile="Rutina Avanzada", Description = "Rutina nivel avanzado", Files = new List<File>(), CreationDate = DateTime.Now, DaysInWeek=3,
+                              Level=Catalog.LevelRoutine.Expert, Status= Catalog.Status.Active},
                 new Routine { ClientID = 1, NameFile="AbdominalesRutina", Description = "Rutina abdominales", Files = new List<File>(), CreationDate = DateTime.Now, DaysInWeek=4,
+                              Level=Catalog.LevelRoutine.Expert, Status= Catalog.Status.Active},
+                new Routine { ClientID = 2, NameFile="Espalda y triceps", Description = "Rutina de volumen", Files = new List<File>(), CreationDate = DateTime.Now, DaysInWeek=4,
                               Level=Catalog.LevelRoutine.Expert, Status= Catalog.Status.Active}
             };
 
@@ -171,6 +167,7 @@ namespace ProyectoFinal.Models
             var medicalRecords = new List<MedicalRecord>
             {
                 new MedicalRecord { ClientID = 1, Age = 26, Gender = 'M', Heigth = 1.81, Weight = 75 },
+                new MedicalRecord { ClientID = 2, Age = 27, Gender = 'M', Heigth = 1.91, Weight = 90 }
             };
 
             medicalRecords.ForEach(m => context.MedicalRecords.Add(m));
@@ -184,9 +181,10 @@ namespace ProyectoFinal.Models
 
             var activities = new List<Activity>
             {
-                new Activity { Name = "Gimnasio", Description = "Gimnasio, pesas, bicicletas, máquinas para correr"},
+                new Activity { Name = "Aparatos", Description = "Gimnasio, pesas, máquinas para correr"},
                 new Activity { Name = "Pilates", Description = "Sistema de entrenamiento físico y mental"},
-                new Activity { Name = "Boxeo", Description = "Deporte de combate"}
+                new Activity { Name = "Aeróbico", Description = "Entrenamiento funcional"},
+                new Activity { Name = "Cycle", Description = "Actividad aeróbica sobre bicicleta fija"}
             };
 
             activities.ForEach(a => context.Activities.Add(a));
@@ -232,12 +230,14 @@ namespace ProyectoFinal.Models
             #region PaymentType
             var paymentType = new List<PaymentType>
             {
-                new PaymentType { Description = "Gimnasio mensual", Status = Catalog.Status.Active, ActivityID = 1, DurationInMonths = 1 },
-                new PaymentType { Description = "Gimnasio anual", Status = Catalog.Status.Active, ActivityID = 1, DurationInMonths = 12 },
+                new PaymentType { Description = "Aparatos mensual", Status = Catalog.Status.Active, ActivityID = 1, DurationInMonths = 1 },
+                new PaymentType { Description = "Aparatos trimestral", Status = Catalog.Status.Active, ActivityID = 1, DurationInMonths = 3 },
                 new PaymentType { Description = "Pilates mensual", Status = Catalog.Status.Active, ActivityID = 2, DurationInMonths = 1 },
-                 new PaymentType { Description = "Pilates anual", Status = Catalog.Status.Active, ActivityID = 2, DurationInMonths = 12 },
-                new PaymentType { Description = "Boxeo mensual", Status = Catalog.Status.Active, ActivityID = 3, DurationInMonths = 1 },
-                new PaymentType { Description = "Boxeo anual", Status = Catalog.Status.Active, ActivityID = 3, DurationInMonths = 12 },
+             //   new PaymentType { Description = "Pilates trimestral", Status = Catalog.Status.Active, ActivityID = 2, DurationInMonths = 3 },
+                new PaymentType { Description = "Aeróbico mensual", Status = Catalog.Status.Active, ActivityID = 3, DurationInMonths = 1 },
+                new PaymentType { Description = "Aeróbico trimestral", Status = Catalog.Status.Active, ActivityID = 3, DurationInMonths = 3 },
+                new PaymentType { Description = "Cycle mensual", Status = Catalog.Status.Active, ActivityID = 4, DurationInMonths = 1 },
+               // new PaymentType { Description = "Cycle trimestral", Status = Catalog.Status.Active, ActivityID = 4, DurationInMonths = 3 },
             };
 
             paymentType.ForEach(p => context.PaymentTypes.Add(p));
@@ -250,14 +250,17 @@ namespace ProyectoFinal.Models
                 new Payment { ClientID = 1, PaymentTypeID = 1, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2017,12,12), CreationDate = DateTime.Now },
                 new Payment { ClientID = 2, PaymentTypeID = 2, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2017,12,12), CreationDate = DateTime.Now },
 
-                new Payment { ClientID = 4, PaymentTypeID = 1, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2016,12,12), CreationDate = DateTime.Now },
-                new Payment { ClientID = 4, PaymentTypeID = 2, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2016,12,12), CreationDate = DateTime.Now },
+                new Payment { ClientID = 3, PaymentTypeID = 1, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2017,07,08), CreationDate = DateTime.Now },
+                new Payment { ClientID = 3, PaymentTypeID = 2, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2017,11,11), CreationDate = DateTime.Now },
 
-                new Payment { ClientID = 5, PaymentTypeID = 3, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2016,12,12), CreationDate = DateTime.Now },
-                new Payment { ClientID = 5, PaymentTypeID = 3, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2016,12,12), CreationDate = DateTime.Now },
+                new Payment { ClientID = 4, PaymentTypeID = 1, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2017,12,12), CreationDate = DateTime.Now },
+                new Payment { ClientID = 4, PaymentTypeID = 2, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2017,12,12), CreationDate = DateTime.Now },
 
-                new Payment { ClientID = 6, PaymentTypeID = 4, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2016,12,12), CreationDate = DateTime.Now },
-                new Payment { ClientID = 6, PaymentTypeID = 4, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2016,12,12), CreationDate = DateTime.Now }
+                new Payment { ClientID = 5, PaymentTypeID = 3, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2017,12,12), CreationDate = DateTime.Now },
+                new Payment { ClientID = 5, PaymentTypeID = 3, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2017,12,12), CreationDate = DateTime.Now },
+
+                new Payment { ClientID = 6, PaymentTypeID = 5, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2017,10,12), CreationDate = DateTime.Now },
+                new Payment { ClientID = 6, PaymentTypeID = 5, Status = Catalog.Status.Active, ExpirationDate = new DateTime(2017,12,12), CreationDate = DateTime.Now }
             };
 
             payments.ForEach(p => context.Payments.Add(p));
@@ -267,9 +270,25 @@ namespace ProyectoFinal.Models
             #region PaymentTypePrices
             var paymentTypePrices = new List<PaymentTypePrice>
             {
-                new PaymentTypePrice { DateFrom = new DateTime(2016,01,01), PaymentTypeID = 1, Price = 200 },
-                new PaymentTypePrice { DateFrom = new DateTime(2016,05,01), PaymentTypeID = 1, Price = 300 },
-                new PaymentTypePrice { DateFrom = new DateTime(2016,01,01), PaymentTypeID = 1, Price = 2000 }
+                new PaymentTypePrice { DateFrom = new DateTime(2017,01,01), PaymentTypeID = 1, Price = 200 },
+                new PaymentTypePrice { DateFrom = new DateTime(2017,05,01), PaymentTypeID = 1, Price = 300 },
+                new PaymentTypePrice { DateFrom = new DateTime(2017,10,01), PaymentTypeID = 1, Price = 600},
+                new PaymentTypePrice { DateFrom = new DateTime(2017,01,01), PaymentTypeID = 2, Price = 700 },
+                new PaymentTypePrice { DateFrom = new DateTime(2017,05,01), PaymentTypeID = 2, Price = 1000 },
+                new PaymentTypePrice { DateFrom = new DateTime(2017,10,01), PaymentTypeID = 3, Price = 300},
+                new PaymentTypePrice { DateFrom = new DateTime(2017,01,01), PaymentTypeID = 3, Price = 400 },
+                new PaymentTypePrice { DateFrom = new DateTime(2017,05,01), PaymentTypeID = 4, Price = 300 },
+                new PaymentTypePrice { DateFrom = new DateTime(2017,10,01), PaymentTypeID = 4, Price = 600},
+                new PaymentTypePrice { DateFrom = new DateTime(2017,01,01), PaymentTypeID = 5, Price = 900 },
+                new PaymentTypePrice { DateFrom = new DateTime(2017,05,01), PaymentTypeID = 5, Price = 1300 },
+                new PaymentTypePrice { DateFrom = new DateTime(2017,10,01), PaymentTypeID = 6, Price = 600},
+                new PaymentTypePrice { DateFrom = new DateTime(2017,01,01), PaymentTypeID = 6, Price = 200 },
+               // new PaymentTypePrice { DateFrom = new DateTime(2017,05,01), PaymentTypeID = 7, Price = 300 },
+               // new PaymentTypePrice { DateFrom = new DateTime(2017,10,01), PaymentTypeID = 7, Price = 1000},
+              //  new PaymentTypePrice { DateFrom = new DateTime(2017,01,01), PaymentTypeID = 8, Price = 400 },
+               // new PaymentTypePrice { DateFrom = new DateTime(2017,05,01), PaymentTypeID = 8, Price = 1000 }
+              
+
             };
 
             paymentTypePrices.ForEach(ptp => context.PaymentTypePrices.Add(ptp));
@@ -363,10 +382,15 @@ namespace ProyectoFinal.Models
             #region Groups
             var groups = new List<Group>
             {
-                new Models.Group {Name="CrossFit", Description="Entrenamiento funcional de alta intensidad.", Level=Catalog.LevelGroup.Begginer, Quota=20, Amount=0, Day="Lunes", HourFrom=13, HourTo=14, ActivityID=1 },
-                new Models.Group {Name="CrossFit 2", Description="Entrenamiento funcional de alta intensidad.", Level=Catalog.LevelGroup.Medium, Quota=20, Amount=0, Day="Lunes", HourFrom=14, HourTo=15, ActivityID=1 },
-                new Models.Group {Name="Pilates", Description="Sistema de entrenamiento físico y mental", Level=Catalog.LevelGroup.Begginer, Quota=20, Amount=0, Day="Lunes", HourFrom=13, HourTo=14, ActivityID=2 },
-                new Models.Group {Name="Boxeo", Description="Deporte de combate", Level=Catalog.LevelGroup.Begginer, Quota=0, Amount=10, Day="Martes", HourFrom=13, HourTo=14, ActivityID=3 }
+                new Models.Group {Name="Musculación", Description="Ejercicios con aparatos.", Level=Catalog.LevelGroup.Begginer, Quota=20, Amount=0, Day="Lunes", HourFrom=13, HourTo=14, ActivityID=1 },
+                new Models.Group {Name="Pilates 1", Description="Sistema de entrenamiento físico y mental.", Level=Catalog.LevelGroup.Begginer, Quota=20, Amount=0, Day="Lunes", HourFrom=14, HourTo=15, ActivityID=2 },
+                new Models.Group {Name="Pilates 2", Description="Sistema de entrenamiento físico y mental", Level=Catalog.LevelGroup.Medium, Quota=20, Amount=0, Day="Lunes", HourFrom=13, HourTo=14, ActivityID=2 },
+                new Models.Group {Name="Boxeo", Description="Deporte de combate", Level=Catalog.LevelGroup.Begginer, Quota=0, Amount=10, Day="Martes", HourFrom=13, HourTo=14, ActivityID=3 },
+                new Models.Group {Name="Boxeo 2", Description="Deporte de combate", Level=Catalog.LevelGroup.Medium, Quota=0, Amount=10, Day="Martes", HourFrom=14, HourTo=15, ActivityID=3 },
+                new Models.Group {Name="AMOS Cross 1", Description="Entreamiento funcional de alta intensidad", Level=Catalog.LevelGroup.Begginer, Quota=10, Amount=10, Day="Martes", HourFrom=13, HourTo=14, ActivityID=3 },
+                new Models.Group {Name="AMOS Cross 2", Description="Entrenamiento funcional de alta intensidad", Level=Catalog.LevelGroup.Medium, Quota=10, Amount=10, Day="Viernes", HourFrom=16, HourTo=17, ActivityID=3 },
+                new Models.Group {Name="Cycle", Description="Actividad aeróbica sobre bicicleta fija", Level=Catalog.LevelGroup.Begginer, Quota=16, Amount=9, Day="Martes", HourFrom=13, HourTo=14, ActivityID=4 },
+                new Models.Group {Name="RPM", Description="Sesión musical de ciclismo indoor", Level=Catalog.LevelGroup.Begginer, Quota=15, Amount=10, Day="Martes", HourFrom=13, HourTo=14, ActivityID=4 }
             }; groups.ForEach(a => context.Groups.Add(a));
             context.SaveChanges();
             #endregion

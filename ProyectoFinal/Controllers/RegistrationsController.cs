@@ -147,7 +147,7 @@ namespace ProyectoFinal.Controllers
             var regi = groupRepository;
             if (registrationRepository.ValidarAbonoActivo(clientID, groupID))
             {
-                ModelState.AddModelError("GroupID", "El cliente no tiene un abono activo");
+                ModelState.AddModelError("GroupID", "El socio no tiene un abono activo");
                 ViewBag.ClientID = new SelectList(clientRepository.GetClients(), "ClientID", "FirstName");
                 ViewBag.GroupID = new SelectList(groupRepository.GetGroups(), "GroupID", "Name");
                 return View();

@@ -55,7 +55,7 @@
                         <ul>
                             @foreach (var schedule in item.ActivitySchedules)
                             {
-                                <li>@Html.DisplayFor(x => schedule.Day)     @Html.DisplayFor(x => schedule.HourFrom)hs a @Html.DisplayFor(x => schedule.HourTo)hs</li>
+                                <li>@Html.DisplayFor(x => schedule.Name): @Html.DisplayFor(x => schedule.Day)     @Html.DisplayFor(x => schedule.HourFrom)hs a @Html.DisplayFor(x => schedule.HourTo)hs</li>
                             }
                         </ul>
                     </p>
