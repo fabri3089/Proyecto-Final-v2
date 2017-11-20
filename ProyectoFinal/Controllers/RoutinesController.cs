@@ -158,6 +158,7 @@ namespace ProyectoFinal.Controllers
         {
             if (ModelState.IsValid)
             {
+                routine.CreationDate = DateTime.Now;
                 routineRepository.InsertRoutine(routine);
                 routineRepository.Save();
                 return RedirectToAction("Index");
